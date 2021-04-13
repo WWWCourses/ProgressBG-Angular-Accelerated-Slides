@@ -5,7 +5,8 @@ var articles = document.querySelectorAll(".themes>article")
 var themes = document.querySelectorAll('.themes>article>section');
 var subThemes = document.querySelectorAll('.themes>article>section>ol');
 
-var hours_per_day = 4;
+var hoursPerDay = 3;
+var lastDayHours = 2;
 subThemes.shown = false;
 
 
@@ -106,7 +107,7 @@ function calcSectionHours(){
 
         outNode.className = 'sectionHours';
         outNode.title = "hours:" + currentSectionHours;
-        outNode.title += "\n"+"day:" + currentSectionHours/hours_per_day;
+        outNode.title += "\n"+"day:" + currentSectionHours/hoursPerDay;
         outNode.innerHTML = "Total Section Hours: " + sectionHours;
 
         article.appendChild(outNode);
@@ -136,12 +137,12 @@ function calcTotalDays(){
         // calculate current days and show it as tooltip
         var current_days;
 
-        // note: last 2 days are 4 hours each:
-        if(i >= len-2){
-            // hours_per_day = 4
-        }
+        // note: last day is lastDayHours:
+        // if(i >= len-1){
+        //     hoursPerDay = lastDayHours
+        // }
 
-        current_days = current_hours / hours_per_day;
+        current_days = current_hours / hoursPerDay;
         current_days = Math.round(current_days * 10)/10
 
         // output
