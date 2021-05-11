@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Angular Overview</title>
+	<link rel="shortcut icon" href="/ProgressBG-Angular-Crash-Course-Slides/favicon.ico">
+
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+	<!-- css & themes include -->
+	<link rel="stylesheet" href="/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/css/reveal.css">
+	<link rel="stylesheet" href="/ProgressBG-Angular-Crash-Course-Slides/outfit/css/themes/projector.css" id="theme">
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement( 'link' );
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match( /print-pdf/gi ) ? '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/css/print/pdf.css' : '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/css/print/paper.css';
+		document.getElementsByTagName( 'head' )[0].appendChild( link );
+	</script>
+	<!--[if lt IE 9]>
+	<script src="lib/js/html5shiv.js"></script>
+	<![endif]-->
+	<!-- CUSTOM -->
+	<base target="_blank">
+</head>
+<body>
+	<div class="reveal default center" data-transition-speed="default" data-background-transition="default">
+		<div class="top_links">
+			<a class="home_link" href="/index.html#AngularOverview" target="_top"><i class="fa fa-home"></i></a>
+			<span class="help_link" href="#"><i class="fa fa-question"></i></span>
+			<div class="help_text">
+				<div><span>N/Space</span><span>Next Slide</span></div>
+				<div><span>P</span><span>Previous Slide</span></div>
+				<div><span>O</span><span>Slides Overview</span></div>
+				<div><span>ctrl+left click</span><span>Zoom Element</span></div>
+			</div>
+		</div>
+		<div class="footer theme_switch">
+			<a href="#" onclick="document.getElementById('theme').setAttribute('href','/ProgressBG-Angular-Crash-Course-Slides/outfit/css/themes/dark.css'); return false;">Dark</a>
+			<a href="#" onclick="document.getElementById('theme').setAttribute('href','/ProgressBG-Angular-Crash-Course-Slides/outfit/css/themes/light.css'); return false;">Light</a>
+			<a href="#" onclick="document.getElementById('theme').setAttribute('href','/ProgressBG-Angular-Crash-Course-Slides/outfit/css/themes/projector.css'); return false;">Projector</a>
+		</div>
+		<div class="slides">
+<!--
+########################################################
+##################### SLIDES START #####################
+########################################################
+-->
+<section data-min-total="80"><h1>Angular Overview</h1></section>
+<section data-transition="zoom">
+	<div class="copyright">
+		<div class="note">
+			<p>Created for</p>
+		</div>
+		<div class="company">
+			<a href="http://progressbg.net/kurs-po-web-design/">
+			<img style="height:80%" src="/ProgressBG-Angular-Crash-Course-Slides/outfit/images/logos/ProgressBG_logo_529_127.png">
+			</a>
+		</div>
+		<div class="author">
+			<span>Iva E. Popova, 2016-2020,</span>
+			<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a>
+		</div>
+	</div>
+</section>
+
+
+<section data-min="15"><h1>What is Angular (and what is not)?</h1></section>
+<section><h2>What is Angular (and what is not)?</h2>
+	<section style="font-size: .8em">
+		<dl class="fa">
+			<dt>A <span class="note">Front-End</span> web application framework</dt>
+			<dd>strongly opinionated, imposing good practictices and cutting-edge Web Technologies</dd>
+			<dd>not a library (like jQuery or React)</dd>
+			<dt>A <span class="note">platform</span> - apps created by Angular runs on:</dt>
+			<dd ><span class="note">Web</span></dd>
+			<dd><span class="note">iOS and Android</span> - using <a href="https://www.nativescript.org/">native script</a> </dd>
+			<dd><span class="note">desktop (Windows, Linux, MacOS)</span> - using <a href="https://electronjs.org/">electron</a></dd>
+			<dt>Created and led by the Angular team at <span class="note">Google</span>.</dt>
+			<dd>the language - <span class="note">TypeScript</span>, created and supported by <span class="note">Microsoft</span>.</dd>
+			<dt><span class="note">Open-source</span> project: <a href="https://github.com/angular/angular">github.com/angular</a></dt>
+		</dl>
+	</section>
+	<section>
+		<dl class="fa">
+			<dt><span class="note">Angular</span> is a total rewrite of the <span class="note">AngularJS</span> framework.</dt>
+			<dd><span class="note">Angular</span> is the official name of all Angular2+ versions</dd>
+			<dd><span class="note">AngularJS</span> is the official name of Angular1 version</dd>
+			<dt>Angular is <span class="note">not an MVC</span>, but a <span class="note">component-based</span> architecture.</dt>
+		</dl>
+	</section>
+	<section>
+		<dl class="fa">
+			<dt>Angular supports the cutting-edge technologies and best practices in Front-End Development:</dt>
+			<dd>Components decoupling, separation of concerns</dd>
+			<dd>Declarative templates</dd>
+			<dd>Services</dd>
+			<dd>Dependency Injection</dd>
+			<dd>Routers</dd>
+			<dd>Observables, RxJS integrated</dd>
+		</dl>
+	</section>
+</section>
+<section data-min="5"><h1>Angular Versioning</h1></section>
+<section><h2>Angular's Versioning</h2>
+	<section><h3>Angular vs AngularJS</h3>
+		<p>There are 2 separated branches of Angular frameworks!</p>
+		<dl class="fa">
+			<dt><b>AngularJS</b> is the name for all v1.x versions of Angular</dt>
+			<dd><a href="https://github.com/angular/angular.js">angular.js on github</a></dd>
+			<dt><b>Angular</b> is the name, under which are developed all version after 2.0</dt>
+			<dd><a href="https://github.com/angular/angular">angular on github</a></dd>
+		</dl>
+	</section>
+	<section><h3>Semantic versioning</h3>
+		<p>From version 2.0, Angular team adopted the<br> <em>semantic versioning:</em></p>
+		<a href="images/AngularSemanticVersioning.png"><img src="images/AngularSemanticVersioning.png"></a>
+	</section>
+	<section><h3>Reference</h3>
+		<p><a href="https://angular.io/guide/releases">Angular versioning and releases</a></p>
+	</section>
+</section>
+
+<section data-min="20"><h1>Get familiar with Angular CLI</h1></section>
+<section><h2>Get familiar with Angular CLI</h2>
+	<section><h3>Overview</h3>
+		<div style="font-style: italic;">From <a href="https://angular.io/cli">angular.io/cli</a></div>
+		<blockquote cite="https://angular.io/cli">
+
+			The Angular CLI is a tool to initialize, develop, scaffold and maintain Angular applications.
+		</blockquote>
+	</section>
+	<section><h3>Angular CLI  - install/update</h3>
+		<dl class="fa">
+			<dt>Installation: <a href="https://angular.io/cli#installing-angular-cli">angular-cli</a></dt>
+		</dl>
+		<pre><code rel="Terminal" class="bash" data-noescape>
+			# you may need to run with sudo, if you're on linux/macos
+			npm install -g @angular/cli
+
+			# check version:
+			ng --version
+		</code></pre>
+	</section>
+	<section><h3>Main commands</h3>
+		<pre><code rel="Terminal" class="bash">
+			# to list all available commands:
+			ng help
+		</code></pre>
+		<table style="font-size: .6em">
+			<tr><th>Command</th><th>Action</th></tr>
+			<tr><td>help</td><td>Show help</td></tr>
+			<tr><td class="note">new</td><td>Creates a new directory and a new Angular app.</td></tr>
+			<tr><td>update</td><td>Updates your application and its dependencies.</td></tr>
+			<tr><td class="note">serve</td><td>Builds and serves your app, rebuilding on file changes.</td></tr>
+			<tr><td class="note">build</td><td>Builds your app and places it into the output path (dist/ by default).</td></tr>
+			<tr><td class="note">generate</td><td>Generates and/or modifies files based on a schematic.</td></tr>
+			<tr><td>add</td><td>Add support for a library to your project.</td></tr>
+			<tr><td>test</td><td>Run unit tests in existing project.</td></tr>
+			<tr><td>e2e</td><td>Run e2e tests in existing project.</td></tr>
+			<tr><td>lint</td><td>Lints code in existing project.</td></tr>
+			<!-- <tr><td>xi18n</td><td>Extracts i18n messages from source code.</td></tr> -->
+			<!-- <tr><td>config</td><td>Get/set configuration values.</td></tr> -->
+			<tr><td>doc</td><td>Opens the official Angular API documentation for a given keyword.</td></tr>
+		</table>
+	</section>
+	<section><h3>--help</h3>
+		<p>You can get help for any ng command, if you put at the end of it the option <code>--help</code></p>
+		<pre><code rel="Terminal" class="bash" data-noescape>
+			ng new --help
+
+			usage: ng new &lt;name&gt; [options]
+			options:
+				--collection (-c)
+					Schematics collection to use.
+				--dry-run (-d)
+					Run through without making any changes.
+				--force (-f)
+					Forces overwriting of files.
+				--inline-style (-s)
+					Specifies if the style will be in the ts file.
+				--inline-template (-t)
+					Specifies if the template will be in the ts file.
+				--prefix (-p)
+					The prefix to apply to generated selectors.
+				--routing
+					Generates a routing module.
+				--skip-package-json
+					Do not add dependencies to package.json.
+				--skip-tests (-S)
+					Skip creating spec files.
+				--style
+					The file extension to be used for style files.
+				--verbose (-v)
+					Adds more details to output logging.
+				--view-encapsulation
+					Specifies the view encapsulation strategy.
+		</code></pre>
+	</section>
+	<section><h3>--help - example</h3>
+		<p style="font-size: .8em">If we want to check the available options for the command <code>ng generate component</code>, we can get help instantly:</p>
+		<pre><code rel="Terminal" class="bash" data-noescape>
+			ng generate component --help
+			usage: ng generate component <name> [options]
+			options:
+				--change-detection (-c)
+					Specifies the change detection strategy.
+				--dry-run (-d)
+					Run through without making any changes.
+				--export
+					Specifies if declaring module exports the component.
+				--flat
+					Flag to indicate if a dir is created.
+				--force (-f)
+					Forces overwriting of files.
+				--inline-style (-s)
+					Specifies if the style will be in the ts file.
+				--inline-template (-t)
+					Specifies if the template will be in the ts file.
+				--module (-m)
+					Allows specification of the declaring module.
+				--prefix (-p)
+					The prefix to apply to generated selectors.
+				--project
+					The name of the project.
+				--selector
+					The selector to use for the component.
+				--skip-import
+					Flag to skip the module import.
+				--spec
+					Specifies if a spec file is generated.
+				--styleext
+					The file extension to be used for style files.
+				--view-encapsulation (-v)
+					Specifies the view encapsulation strategy.
+		</code></pre>
+	</section>
+	<section><h3>--dry-run</h3>
+		<dl class="fa">
+			<dt>Any CLI command can be run with <code>--dry-run</code> option, which will prevent CLI from making any changes to your project.</dt>
+			<dt>Dry-run mode is useful to preview what an ng command will do, especially, if you use it with <code>--verbose</code> option.</dt>
+		</dl>
+	</section>
+	<section><h3>--dry-run - example</h3>
+		<pre><code rel="Terminal" class="bash" data-noescape>
+			ng new SimplestApp --dry-run
+
+			CREATE SimplestApp/README.md (1028 bytes)
+			CREATE SimplestApp/angular.json (3444 bytes)
+			CREATE SimplestApp/package.json (1316 bytes)
+			CREATE SimplestApp/tsconfig.json (384 bytes)
+			CREATE SimplestApp/tslint.json (2805 bytes)
+			CREATE SimplestApp/.editorconfig (245 bytes)
+			CREATE SimplestApp/.gitignore (503 bytes)
+			CREATE SimplestApp/src/environments/environment.prod.ts (51 bytes)
+			CREATE SimplestApp/src/environments/environment.ts (631 bytes)
+			CREATE SimplestApp/src/favicon.ico (5430 bytes)
+			CREATE SimplestApp/src/index.html (298 bytes)
+			CREATE SimplestApp/src/main.ts (370 bytes)
+			CREATE SimplestApp/src/polyfills.ts (3194 bytes)
+			CREATE SimplestApp/src/test.ts (642 bytes)
+			CREATE SimplestApp/src/assets/.gitkeep (0 bytes)
+			CREATE SimplestApp/src/styles.css (80 bytes)
+			CREATE SimplestApp/src/browserslist (375 bytes)
+			CREATE SimplestApp/src/karma.conf.js (964 bytes)
+			CREATE SimplestApp/src/tsconfig.app.json (194 bytes)
+			CREATE SimplestApp/src/tsconfig.spec.json (282 bytes)
+			CREATE SimplestApp/src/tslint.json (314 bytes)
+			CREATE SimplestApp/src/app/app.module.ts (314 bytes)
+			CREATE SimplestApp/src/app/app.component.css (0 bytes)
+			CREATE SimplestApp/src/app/app.component.html (1141 bytes)
+			CREATE SimplestApp/src/app/app.component.spec.ts (986 bytes)
+			CREATE SimplestApp/src/app/app.component.ts (207 bytes)
+			CREATE SimplestApp/e2e/protractor.conf.js (752 bytes)
+			CREATE SimplestApp/e2e/src/app.e2e-spec.ts (299 bytes)
+			CREATE SimplestApp/e2e/src/app.po.ts (208 bytes)
+			CREATE SimplestApp/e2e/tsconfig.e2e.json (213 bytes)
+
+			NOTE: Run with "dry run" no changes were made.
+		</code></pre>
+	</section>
+	<section><h3>--skip-tests</h3>
+		<dl class="fa">
+			<dt>the <code>--skip-tests</code> options instructs Angular to not create spec files used for testing.</dt>
+		</dl>
+		<pre><code rel="Terminal" class="bash" data-noescape>
+			ng new SimplestApp --skip-tests --dry-run
+
+			CREATE SimplestApp/README.md (1028 bytes)
+			CREATE SimplestApp/angular.json (3978 bytes)
+			CREATE SimplestApp/package.json (1316 bytes)
+			CREATE SimplestApp/tsconfig.json (384 bytes)
+			CREATE SimplestApp/tslint.json (2805 bytes)
+			CREATE SimplestApp/.editorconfig (245 bytes)
+			CREATE SimplestApp/.gitignore (503 bytes)
+			CREATE SimplestApp/src/environments/environment.prod.ts (51 bytes)
+			CREATE SimplestApp/src/environments/environment.ts (631 bytes)
+			CREATE SimplestApp/src/favicon.ico (5430 bytes)
+			CREATE SimplestApp/src/index.html (298 bytes)
+			CREATE SimplestApp/src/main.ts (370 bytes)
+			CREATE SimplestApp/src/polyfills.ts (3194 bytes)
+			CREATE SimplestApp/src/test.ts (642 bytes)
+			CREATE SimplestApp/src/assets/.gitkeep (0 bytes)
+			CREATE SimplestApp/src/styles.css (80 bytes)
+			CREATE SimplestApp/src/browserslist (375 bytes)
+			CREATE SimplestApp/src/karma.conf.js (964 bytes)
+			CREATE SimplestApp/src/tsconfig.app.json (194 bytes)
+			CREATE SimplestApp/src/tsconfig.spec.json (282 bytes)
+			CREATE SimplestApp/src/tslint.json (314 bytes)
+			CREATE SimplestApp/src/app/app.module.ts (314 bytes)
+			CREATE SimplestApp/src/app/app.component.css (0 bytes)
+			CREATE SimplestApp/src/app/app.component.html (1141 bytes)
+			CREATE SimplestApp/src/app/app.component.ts (207 bytes)
+			CREATE SimplestApp/e2e/protractor.conf.js (752 bytes)
+			CREATE SimplestApp/e2e/src/app.e2e-spec.ts (299 bytes)
+			CREATE SimplestApp/e2e/src/app.po.ts (208 bytes)
+			CREATE SimplestApp/e2e/tsconfig.e2e.json (213 bytes)
+
+			NOTE: Run with "dry run" no changes were made.
+		</code></pre>
+	</section>
+	<section><h3>--skip-install</h3>
+		<dl class="fa">
+			<dt>Sometime, you may want to skip the installation of node-modules dependencies, when you create the new app (you can always install them after with <code>npm install</code>)</dt>
+			<dt>A common use-case is when you do not want to use npm, but other package manager, like yarn.</dt>
+		</dl>
+	</section>
+	<section><h3>Skip node-modules installation - example</h3>
+		<pre><code rel="Terminal" class="bash" data-noescape>
+			ng new SimplestApp --skip-install --skip-tests
+
+			CREATE SimplestApp/README.md (1028 bytes)
+			CREATE SimplestApp/angular.json (3978 bytes)
+			CREATE SimplestApp/package.json (1316 bytes)
+			CREATE SimplestApp/tsconfig.json (384 bytes)
+			CREATE SimplestApp/tslint.json (2805 bytes)
+			CREATE SimplestApp/.editorconfig (245 bytes)
+			CREATE SimplestApp/.gitignore (503 bytes)
+			CREATE SimplestApp/src/environments/environment.prod.ts (51 bytes)
+			CREATE SimplestApp/src/environments/environment.ts (631 bytes)
+			CREATE SimplestApp/src/favicon.ico (5430 bytes)
+			CREATE SimplestApp/src/index.html (298 bytes)
+			CREATE SimplestApp/src/main.ts (370 bytes)
+			CREATE SimplestApp/src/polyfills.ts (3194 bytes)
+			CREATE SimplestApp/src/test.ts (642 bytes)
+			CREATE SimplestApp/src/assets/.gitkeep (0 bytes)
+			CREATE SimplestApp/src/styles.css (80 bytes)
+			CREATE SimplestApp/src/browserslist (375 bytes)
+			CREATE SimplestApp/src/karma.conf.js (964 bytes)
+			CREATE SimplestApp/src/tsconfig.app.json (194 bytes)
+			CREATE SimplestApp/src/tsconfig.spec.json (282 bytes)
+			CREATE SimplestApp/src/tslint.json (314 bytes)
+			CREATE SimplestApp/src/app/app.module.ts (314 bytes)
+			CREATE SimplestApp/src/app/app.component.css (0 bytes)
+			CREATE SimplestApp/src/app/app.component.html (1141 bytes)
+			CREATE SimplestApp/src/app/app.component.ts (207 bytes)
+			CREATE SimplestApp/e2e/protractor.conf.js (752 bytes)
+			CREATE SimplestApp/e2e/src/app.e2e-spec.ts (299 bytes)
+			CREATE SimplestApp/e2e/src/app.po.ts (208 bytes)
+			CREATE SimplestApp/e2e/tsconfig.e2e.json (213 bytes)
+		</code></pre>
+	</section>
+	<!-- <section><h3 class="advanced">Turn on auto completion</h3>
+		<dl class="fa">
+			<dt><b>bash</b> (or Git BASH for Windows) and <b>zsh</b> users can turn on Angular CLI auto-completions, following the steps given in: <a href="https://github.com/angular/angular-cli/wiki/stories-autocompletion">stories autocompletion</a></dt>
+			<dt>To get <b>bash on Windows</b>, you can install <a href="https://git-scm.com/downloads">Git for Windows</a>, which includes the GitBash.</dt>
+		</dl>
+	</section> -->
+	<section><h3>References</h3>
+		<dl class="fa">
+			<dt><a href="https://angular.io/cli">CLI Overview and Command Reference</a></dt>
+		</dl>
+	</section>
+</section>
+
+<section data-min="30"><h1>Frame our TodoApp demo project components structure</h1></section>
+<section><h2>Frame our TodoApp demo project components structure</h2>
+	<section><h3>TodoApp basic functionality</h3>
+		<a href="./images/todoAppBasicFunctionality.gif"><img src="./images/todoAppBasicFunctionality.gif" alt="./images/todoAppBasicFunctionality.gif"></a>
+	</section>
+  <section>
+    <a href="images/TodoAppComponentsStructure.png"><img src="images/TodoAppComponentsStructure.png"></a>
+  </section>
+</section>
+
+<section data-min="5"><h1>Create the TodoApp project structure in a minutes</h1></section>
+<section><h2>Create the TodoApp project structure in a minutes</h2>
+	<section><h3>Prerequisites</h3>
+		<dl class="fa">
+			<dt>Make sure, you can open your Terminal and navigate into the folder where you want the Angular Project to be created.</dt>
+			<dt>For VSCode users, check: <a href="https://code.visualstudio.com/docs/editor/integrated-terminal">Integrated Terminal</a> docs.</dt>
+		</dl>
+	</section>
+	<section><h3></h3>
+		<pre><code rel="Terminal" class="bash" data-noescape>
+			# create the project - use the default settings (just press enter)
+			ng new TodoApp --minimal
+
+			# go to project root folder
+			cd TodoApp
+
+			# run the TodoApp, using local server
+			ng serve --open
+		</code></pre>
+		<dl class="fa">
+			<dt>the <code>--minimal</code> option create a workspace without any testing frameworks</dt>
+			<dt>the <code>--open</code> option instructs the serve to open the URL at which the project will be served. The default is : <a href="http://localhost:4200/">http://localhost:4200/</a></dt>
+			<dt>Note, that if you kill the process or close your terminal you'll be stopping the server.</dt>
+		</dl>
+	</section>
+	<section><h3>The result</h3>
+		<a href="./images/TodoAppInitialAngularCLI.png"><img src="./images/TodoAppInitialAngularCLI.png" alt="TodoAppInitialAngularCLI.png"></a>
+	</section>
+</section>
+
+<section data-min="10"><h1>Project Deployment</h1></section>
+<section><h2 class="advanced">Project Deployment</h2>
+	<section><h3>Deploy the TodoApp App</h3>
+		<pre><code rel="Terminal" class="bash" data-noescape>
+			# generate a non-optimized build:
+			ng build
+
+			# the generated files will be quite big:
+			du -sh dist/
+			#145	dist/
+
+			# generate production-optimised build:
+			ng build --prod
+
+			du -sh -h dist/
+			#452K	dist/
+		</code></pre>
+	</section>
+</section>
+
+<section data-min="5"><h1>using VSCode for Angular projects</h1></section>
+<section><h2>using VSCode for Angular projects</h2>
+	<section><h3>References</h3>
+		<dl class="fa">
+			<dt><a href="https://code.visualstudio.com/docs/nodejs/angular-tutorial">Using Angular in Visual Studio Code</a></dt>
+			<dt><a href="https://marketplace.visualstudio.com/items?itemName=devboosts.angular-productivity-pack">useful extensions</a></dt>
+		</dl>
+	</section>
+</section>
+
+
+
+<!-- <section id="hw"><h1>Exercises</h1></section>
+<section><h2>Task1: Task1Title</h2>
+	<section><h3>The Task</h3>
+		<dl class="fa">
+			<dt></dt>
+		</dl>
+	</section>
+</section>
+
+<section><h3>Submission</h3>
+	<dl class="fa">
+		<dt>PLease, prefix your filenames/archive with your name initials, before sending.</dt>
+		<dd>For instance: <b>iep_task1.py</b> or <b>iep_tasks.rar</b></dd>
+		<dt>Send files to <a href="mailto:ProgressBG.WWW.Courses@gmail.com?Subject=_AngularOverview_">ProgressBG.WWW.Courses@gmail.com</a></dt>
+	</dl>
+</section> -->
+
+
+<section class="disclaimer" data-background="/ProgressBG-Angular-Crash-Course-Slides/outfit/images/for_slides/the_end_on_sand.jpg">
+	<p>These slides are based on</p>
+	<p>customised version of </p>
+	<p><a href="http://hakim.se/">Hakimel</a>'s <a href="http://lab.hakim.se/reveal-js">reveal.js</a></p>
+	 <p>framework</p>
+</section>
+<!--
+########################################################
+##################### SLIDES END   #####################
+########################################################
+-->
+		</div>
+	</div>
+	<!-- Custom processing -->
+	<script src="/ProgressBG-Angular-Crash-Course-Slides/outfit/js/slides.js"></script>
+	<!-- external scripts -->
+
+	<script src="/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/js/reveal.js"></script>
+
+	<!-- init reveal -->
+	<script>
+		// Full list of configuration options available at:
+		// https://github.com/hakimel/reveal.js#configuration
+		var highlightjsTabSize = '  ';
+		Reveal.initialize({
+			controls: true,
+			progress: true,
+			slideNumber: 'c/t',
+			keyboard: true,
+			history: true,
+
+			// display control
+			// center: true,
+			// width: '100%',
+			// height: '100%',
+			// // Factor of the display size that should remain empty around the content
+			// margin: 0.1,
+
+			// The "normal" size of the presentation, aspect ratio will be preserved
+			// when the presentation is scaled to fit different resolutions. Can be
+			// specified using percentage units.
+			width: 1280,
+			height: 1024,
+
+			// Factor of the display size that should remain empty around the content
+			margin: 0.1,
+
+			// Bounds for smallest/largest possible scale to apply to content
+			minScale: 0.2,
+			maxScale: 1.5,
+
+			// slide transition
+			transition: 'concave', // none/fade/slide/convex/concave/zoom
+			// shift+maous click to zoom in/out element
+			zoomKey: 'ctrl',
+			// theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+			// transition: Reveal.getQueryHash().transition || 'default'
+			// Optional reveal.js plugins
+			dependencies: [
+				{ src: '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+				{ src: '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+				{ src: '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+				{ src: '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.configure({tabReplace: highlightjsTabSize}); hljs.initHighlightingOnLoad(); } },
+				{ src: '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/plugin/zoom-js/zoom.js', async: true },
+				{ src: '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/plugin/notes/notes.js', async: true }
+			]
+		});
+	</script>
+	<!-- linkedin badge -->
+	<script type="text/javascript" src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
+</body>
+</html>

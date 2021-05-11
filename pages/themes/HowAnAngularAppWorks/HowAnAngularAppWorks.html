@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>HowAnAngularAppWorks</title>
+	<link rel="shortcut icon" href="/ProgressBG-Angular-Crash-Course-Slides/favicon.ico">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+	<!-- css & themes include -->
+	<link rel="stylesheet" href="/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/css/reveal.css">
+	<link rel="stylesheet" href="/ProgressBG-Angular-Crash-Course-Slides/outfit/css/themes/projector.css" id="theme">
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement( 'link' );
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match( /print-pdf/gi ) ? '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/css/print/pdf.css' : '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/css/print/paper.css';
+		document.getElementsByTagName( 'head' )[0].appendChild( link );
+	</script>
+	<!--[if lt IE 9]>
+	<script src="lib/js/html5shiv.js"></script>
+	<![endif]-->
+	<!-- CUSTOM -->
+	<base target="_blank">
+</head>
+<body>
+	<div class="reveal default center" data-transition-speed="default" data-background-transition="default">
+		<div class="top_links">
+			<a class="home_link" href="/index.html#HowAnAngularAppWorks" target="_top"><i class="fa fa-home"></i></a>
+			<span class="help_link" href="#"><i class="fa fa-question"></i></span>
+			<div class="help_text">
+				<div><span>N/Space</span><span>Next Slide</span></div>
+				<div><span>P</span><span>Previous Slide</span></div>
+				<div><span>O</span><span>Slides Overview</span></div>
+				<div><span>ctrl+left click</span><span>Zoom Element</span></div>
+			</div>
+		</div>
+		<div class="footer theme_switch">
+			<a href="#" onclick="document.getElementById('theme').setAttribute('href','/ProgressBG-Angular-Crash-Course-Slides/outfit/css/themes/dark.css'); return false;">Dark</a>
+			<a href="#" onclick="document.getElementById('theme').setAttribute('href','/ProgressBG-Angular-Crash-Course-Slides/outfit/css/themes/light.css'); return false;">Light</a>
+			<a href="#" onclick="document.getElementById('theme').setAttribute('href','/ProgressBG-Angular-Crash-Course-Slides/outfit/css/themes/projector.css'); return false;">Projector</a>
+		</div>
+		<div class="slides">
+<!--
+########################################################
+##################### SLIDES START #####################
+########################################################
+-->
+<section data-min-total="80"><h1>How An Angular App Works</h1></section>
+<section data-transition="zoom">
+	<div class="copyright">
+		<div class="note">
+			<p>Created for</p>
+		</div>
+		<div class="company">
+			<a href="http://progressbg.net/kurs-po-web-design/">
+			<img style="height:80%" src="/ProgressBG-Angular-Crash-Course-Slides/outfit/images/logos/ProgressBG_logo_529_127.png">
+			</a>
+		</div>
+		<div class="author">
+			<span>Iva E. Popova, 2016-2020,</span>
+			<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a>
+		</div>
+	</div>
+</section>
+
+
+<section data-min="15"><h1>Project Directory Structure and Files</h1></section>
+<section><h2>Project Directory Structure and Files</h2>
+	<p><code>ng new</code> creates the following structure:</p>
+	<dl class="fa" style="font-size: .8em;">
+		<dt><code>angular.json</code> (<code>.angular-cli.json</code> in angular cli versions < 6.0)</dt>
+		<dd>configuration for Angular CLI</dd>
+		<dt><code>e2e/</code></dt>
+		<dd>for <em>end-to-end</em> (e2e) tests</dd>
+		<dt><code>node_modules/</code></dt>
+		<dd>here are installed project's node modules dependencies</dd>
+		<dt><code class="note">package.json</code></dt>
+		<dd><em>dependencies</em> and <em>devDependencies</em> sections specifies the node modules dependencies</dd>
+		<dt><code>package-lock.json</code></dt>
+		<dd>it is automatically generated for any operations where npm modifies either the node_modules tree, or package.json</dd>
+		<dt><code class="note">src/app/</code></dt>
+		<dd>here is the actual logic of your app</dd>
+		<dt><code>tsconfig.json</code></dt>
+		<dd>TypeScript compiler configuration</dd>
+		<dt><code>tslint.json</code></dt>
+		<dd>tslint configuration</dd>
+	</dl>
+</section>
+
+<section data-min="15"><h1>Angular Main Workflow Overview</h1></section>
+<section><h2>Angular Main Workflow Overview</h2>
+	<section>
+		<a href="images/AngularWorkflowOverview.png"><img src="images/AngularWorkflowOverview.png"></a>
+	</section>
+</section>
+
+<section data-min="20"><h1>Angular Architecture Overview</h1></section>
+<section><h2>Angular Architecture Overview</h2>
+	<section>
+		<p>The architecture overview as depicted in angular.io docs:</p>
+		<a href="images/overview2byAngTeam.png"><img src="images/overview2byAngTeam.png"></a>
+	</section>
+	<section>
+		<dl class="fa">
+			<dt>Angular app consists of one or more <span class="note">modules</span>.</dt>
+			<dt>Every Angular app has at least one module - the root module (AppModule)</dt>
+			<dt>Each module encompasses <span class="note">components</span> and <span class="note">services</span> </dt>
+			<dt>A component is a unit, containing the UI (HTML + CSS) and the JS code</dt>
+			<dt>Service - code, which is not intrinsic to a single component, i.e. the business logics.</dt>
+		</dl>
+	</section>
+	<section><h3>Components</h3>
+		<dl class="fa">
+			<dt>A component represents a patch of screen called a <em>view</em>, like nav bar, search, footer and etc.</dt>
+			<dt>They are independent, reusable, and are built on the concepts of <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components">Web Components</a></dt>
+			<dd>Check the official Web Components repository: <a href="https://www.webcomponents.org/">@webcomponents.org</a></dd>
+		</dl>
+	</section>
+	<section><h3>Components</h3>
+		<dl class="fa">
+			<dt>Each component can consists of many other components (i.e. they form a <em>component tree</em>)</dt>
+			<dt>Components can communicate with each other</dt>
+			<dt>Angular creates, updates, and destroys components as the user moves through the application</dt>
+			<dt>A TypeScript class can become a component if it is decorated with <code>@Component</code> decorator</dt>
+		</dl>
+	</section>
+	<section><h3>Create Components</h3>
+		<dl class="fa">
+			<dt>When creating a new project, Angular creates for us only the main app component <em>app.component.*</em></dt>
+			<dt>We can create other components using the Angular CLI commands:</dt>
+			<pre><code rel="Terminal" class="bash" data-noescape>
+				ng generate component compName
+			</code></pre>
+			<dd>or by the short-hand commands:</dd>
+			<pre><code rel="Terminal" class="bash" data-noescape>
+				ng g c compName
+			</code></pre>
+		</dl>
+	</section>
+</section>
+<section data-min="10"><h1>Create the Components of TodoApp</h1></section>
+<section><h2>Create the Components of TodoApp</h2>
+	<section><h3>Live demo</h3>
+	</section>
+</section>
+
+
+<!-- <section data-min="30"><h1>Hands on the BookStore</h1></section>
+<section><h2>Hands on the BookStore</h2>
+	<dl class="fa">
+		<dt>Create the main components for the demo BookStore, as show</dt>
+	</dl>
+</section> -->
+
+<section data-min="1"><h1>References</h1></section>
+<section><h2>References</h2>
+	<section><h3>Readings</h3>
+		<dl class="fa">
+			<dt><a href="https://github.com/angular/angular-cli/wiki">Angular CLI wiki</a></dt>
+			<dt><a href="https://www.sitepoint.com/ultimate-angular-cli-reference/">The Ultimate Angular CLI Reference Guide</a></dt>
+		</dl>
+	</section>
+</section>
+
+<!--
+<section id="hw" data-min="4"><h1>Exercises</h1></section>
+<section><h2>Task1: Task1Title</h2>
+	<section><h3>The Task</h3>
+		<dl class="fa">
+			<dt></dt>
+		</dl>
+	</section>
+</section>
+
+<section><h3>Submission</h3>
+	<dl class="fa">
+		<dt>PLease, prefix your filenames/archive with your name initials, before sending.</dt>
+		<dd>For instance: <b>iep_task1.py</b> or <b>iep_tasks.rar</b></dd>
+		<dt>Send files to <a href="mailto:ProgressBG.WWW.Courses@gmail.com?Subject=_HowAnAngularAppWorks_">ProgressBG.WWW.Courses@gmail.com</a></dt>
+	</dl>
+</section>
+
+ -->
+<section class="disclaimer" data-background="/ProgressBG-Angular-Crash-Course-Slides/outfit/images/for_slides/the_end_on_sand.jpg">
+	<p>These slides are based on</p>
+	<p>customised version of </p>
+	<p><a href="http://hakim.se/">Hakimel</a>'s <a href="http://lab.hakim.se/reveal-js">reveal.js</a></p>
+	 <p>framework</p>
+</section>
+<!--
+########################################################
+##################### SLIDES END   #####################
+########################################################
+-->
+		</div>
+	</div>
+	<!-- Custom processing -->
+	<script src="/ProgressBG-Angular-Crash-Course-Slides/outfit/js/slides.js"></script>
+	<!-- external scripts -->
+
+	<script src="/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/js/reveal.js"></script>
+
+	<!-- init reveal -->
+	<script>
+		// Full list of configuration options available at:
+		// https://github.com/hakimel/reveal.js#configuration
+		var highlightjsTabSize = '  ';
+		Reveal.initialize({
+			controls: true,
+			progress: true,
+			slideNumber: 'c/t',
+			keyboard: true,
+			history: true,
+
+			// display control
+			// center: true,
+			// width: '100%',
+			// height: '100%',
+			// // Factor of the display size that should remain empty around the content
+			// margin: 0.1,
+
+			// The "normal" size of the presentation, aspect ratio will be preserved
+			// when the presentation is scaled to fit different resolutions. Can be
+			// specified using percentage units.
+			width: 1280,
+			height: 1024,
+
+			// Factor of the display size that should remain empty around the content
+			margin: 0.1,
+
+			// Bounds for smallest/largest possible scale to apply to content
+			minScale: 0.2,
+			maxScale: 1.5,
+
+			// slide transition
+			transition: 'concave', // none/fade/slide/convex/concave/zoom
+			// shift+maous click to zoom in/out element
+			zoomKey: 'ctrl',
+			// theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+			// transition: Reveal.getQueryHash().transition || 'default'
+			// Optional reveal.js plugins
+			dependencies: [
+				{ src: '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+				{ src: '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+				{ src: '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+				{ src: '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.configure({tabReplace: highlightjsTabSize}); hljs.initHighlightingOnLoad(); } },
+				{ src: '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/plugin/zoom-js/zoom.js', async: true },
+				{ src: '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/plugin/notes/notes.js', async: true }
+			]
+		});
+	</script>
+	<!-- linkedin badge -->
+	<script type="text/javascript" src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
+</body>
+</html>

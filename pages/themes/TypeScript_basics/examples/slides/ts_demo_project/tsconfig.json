@@ -1,0 +1,15 @@
+{
+	"compilerOptions": {
+		"outDir": "./dist/",
+        "sourceMap": false,
+	    "module": "commonjs",
+		// "target": "ESNext",
+		"lib": ["dom", "es6"],
+		"strict": true,
+		"noImplicitAny": true
+	},
+	// "files":["your_script_0.ts", "your_script_1.ts"],
+	"exclude": [
+	    "node_modules"
+	]
+}
