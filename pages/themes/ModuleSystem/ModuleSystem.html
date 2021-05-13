@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>ModuleSystem</title>
+	<link rel="shortcut icon" href="/ProgressBG-Angular-Crash-Course-Slides/favicon.ico">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+	<!-- css & themes include -->
+	<link rel="stylesheet" href="/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/css/reveal.css">
+	<link rel="stylesheet" href="/ProgressBG-Angular-Crash-Course-Slides/outfit/css/themes/projector.css" id="theme">
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement( 'link' );
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match( /print-pdf/gi ) ? '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/css/print/pdf.css' : '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/css/print/paper.css';
+		document.getElementsByTagName( 'head' )[0].appendChild( link );
+	</script>
+	<!--[if lt IE 9]>
+	<script src="lib/js/html5shiv.js"></script>
+	<![endif]-->
+	<!-- CUSTOM -->
+	<base target="_blank">
+</head>
+<body>
+	<div class="reveal default center" data-transition-speed="default" data-background-transition="default">
+		<div class="top_links">
+			<a class="home_link" href="/index.html#moduleSystem" target="_top"><i class="fa fa-home"></i></a>
+			<span class="help_link" href="#"><i class="fa fa-question"></i></span>
+			<div class="help_text">
+				<div><span>N/Space</span><span>Next Slide</span></div>
+				<div><span>P</span><span>Previous Slide</span></div>
+				<div><span>O</span><span>Slides Overview</span></div>
+				<div><span>ctrl+left click</span><span>Zoom Element</span></div>
+			</div>
+		</div>
+		<div class="footer theme_switch">
+			<a href="#" onclick="document.getElementById('theme').setAttribute('href','/ProgressBG-Angular-Crash-Course-Slides/outfit/css/themes/dark.css'); return false;">Dark</a>
+			<a href="#" onclick="document.getElementById('theme').setAttribute('href','/ProgressBG-Angular-Crash-Course-Slides/outfit/css/themes/light.css'); return false;">Light</a>
+			<a href="#" onclick="document.getElementById('theme').setAttribute('href','/ProgressBG-Angular-Crash-Course-Slides/outfit/css/themes/projector.css'); return false;">Projector</a>
+		</div>
+		<div class="slides">
+<!--
+########################################################
+##################### SLIDES START #####################
+########################################################
+-->
+<section data-min-total="160"><h1>Angular Module System</h1></section>
+<section data-transition="zoom">
+	<div class="copyright">
+		<div class="note">
+			<p>Created for</p>
+		</div>
+		<div class="company">
+			<a href="http://progressbg.net/kurs-po-web-design/">
+			<img style="height:80%" src="/ProgressBG-Angular-Crash-Course-Slides/outfit/images/logos/ProgressBG_logo_529_127.png">
+			</a>
+		</div>
+		<div class="author">
+			<span>Iva E. Popova, 2016-2020,</span>
+			<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a>
+		</div>
+	</div>
+</section>
+
+
+<section data-min="5"><h1>The benefits of modularizing your app</h1></section>
+<section><h2>The benefits of modularizing your app</h2>
+	<section>
+		<dl class="fa">
+			<dt>Easy to share and reuse code.</dt>
+			<dt>Extending Angular ecosystem with libraries:</dt>
+			<dd>Angular's built-in libraries, as well as many third-party libraries are available as NgModules.</dd>
+			<dt>Smaller and faster applications with "lazy-loading" modules.</dt>
+		</dl>
+	</section>
+</section>
+
+<section data-min="10"><h1>What are Angular Modules?</h1></section>
+<section><h2>What are Angular Modules?</h2>
+	<section><h3>Overview</h3>
+		<dl class="fa">
+			<dt>In Angular, a module is a mechanism to group components, directives, pipes and services into a  cohesive block of code.</dt>
+			<dt>Angular has its own modularity system called NgModules.</dt>
+			<dt>Each  NgModule can import functionality that is exported from other NgModules, and export selected functionality to other NgModules.</dt>
+			<dt>Every Angular app has at least one NgModule - the root module. The application is launched by bootstrapping the root NgModule.</dt>
+		</dl>
+	</section>
+	<section><h3>What is NgModule?</h3>
+		<dl class="fa">
+			<dt>A class, marked by the @NgModule decorator.</dt>
+			<dt>The @NgModule decorator provides metadata for:</dt>
+			<dd>how to compile a component's template</dd>
+			<dd>how to create an injector at runtime</dd>
+			<dd>identifies the module's own components, directives, and pipes</dd>
+			<dt>NgModules can also add services to the application</dt>
+			<dt>We can control how a module is loaded:</dt>
+			<dd>eagerly - load the module when the application starts</dd>
+			<dd>lazy- load the module asynchronously(in the background) by the router.</dd>
+		</dl>
+	</section>
+</section>
+
+<section data-min="5"><h1>The Root (App) Module</h1></section>
+<section><h2>The Root (App) Module</h2>
+	<section>
+		<dl class="fa">
+			<dt>Every Angular app has at least one module - <span class="note">the root module</span></dt>
+			<dd>by convention, it is usually called AppModule, and resides in a <code>app.module.ts</code> file.</dd>
+			<dt>The application launches by bootstrapping the root AppModule</dt>
+			<dt>The bootstrapping process, among other things, creates the components listed in the bootstrap array and inserts each one into the browser DOM.</dt>
+		</dl>
+	</section>
+	<section><h3>AppModule - code template</h3>
+		<pre><code rel="app.module.ts" class="ts">
+			/* JavaScript imports of modules */
+			import { BrowserModule } from '@angular/platform-browser';
+			import { NgModule } from '@angular/core';
+
+			/* JavaScript imports of components */
+			import { AppComponent } from './app.component';
+
+			/* the AppModule class with the @NgModule decorator */
+			@NgModule({
+				declarations: [
+					AppComponent
+				],
+				imports: [
+					BrowserModule,
+				],
+				providers: [],
+				bootstrap: [AppComponent]
+			})
+			export class AppModule { }
+		</code></pre>
+	</section>
+</section>
+
+
+<section data-min="5"><h1>The @NgModule decorator</h1></section>
+<section><h2>The @NgModule decorator</h2>
+	<section>
+		<p>@NgModule takes a metadata object. Some of its properties are:</p>
+		<dl class="fa" style="font-size: .9em;">
+			<dt><code><span class="note">declarations</span>=[]</code></dt>
+			<dd>An array, that specifies which components belong to that module</dd>
+			<dt><code><span class="note">imports</span>=[]</code></dt>
+			<dd>An array, that specifies other NgModules that this particular module needs to function properly.</dd>
+			<dt><code><span class="note">exports</span>=[]</code></dt>
+			<dd>The set of components, directives, and pipes declared in this NgModule that can be used in the template of any component that is part of an NgModule that imports this NgModule.</dd>
+			<dt><code><span class="note">providers</span>=[]</code></dt>
+			<dd>An array, that specifies the services your app will use. Recall, that you can also specify providers at the component level, which is often preferred.</dd>
+			<dt><code><span class="note">bootstrap</span>=[]</code></dt>
+			<dd>The main application view, called the root component, which hosts all other app views. Only the root NgModule should set the bootstrap property.</dd>
+		</dl>
+		<hr>
+		<dl class="fa" style="font-size: .8em;">
+			<dt>Reference:</dt>
+			<dd><a href="https://angular.io/guide/architecture-modules#ngmodule-metadata">NgModule metadata</a> @angular/guide</dd>
+			<dd><a href="https://angular.io/api/core/NgModule">@NgModule decorator</a> @angular/API</dd>
+		</dl>
+	</section>
+</section>
+
+<section data-min="20"><h1>"Feature" Modules</h1></section>
+<section><h2>"Feature" Modules</h2>
+	<section><h3>Overview</h3>
+		<dl class="fa">
+			<dt>Depending on the purpose of a NgModule, we can speak of <span class="note">feature modules</span>, <span class="note">shared modules</span>, <span class="note">lazy-loading modules</span> and so on.</dt>
+		</dl>
+	</section>
+	<section><h3>Overview</h3>
+		<dl class="fa">
+			<dt>A "Feature" module encompasses code related to a specific functionality or feature. It's independent from other modules.</dt>
+			<dd>Examples: user logging, routing, forms and other widgets.</dd>
+			<dt>A feature module collaborates with the root module and with other modules through the services it provides and the components, directives, and pipes that it shares.</dt>
+		</dl>
+		<p>More on feature modules: <a href="https://angular.io/guide/module-types">Types of feature modules</a> @angular/guide</p>
+	</section>
+</section>
+
+<section data-min="20"><h1>Shared Modules</h1></section>
+<section><h2>Shared Modules</h2>
+	<section><h3>Overview</h3>
+		<dl class="fa">
+			<dt>A Shared Module provides a general place for common utilities.</dt>
+			<dd>data retrieval</dd>
+			<dd>search component</dd>
+			<dd>other services</dd>
+			<dt>All common functionality in the feature modules should be placed inside one or more Shared Modules</dt>
+			<!-- <dt>By convention, we put a Shared Module in app/code folder</dt> -->
+		</dl>
+	</section>
+</section>
+
+<section data-min="20"><h1>Lazy-loading modules</h1></section>
+<section><h2>Lazy-loading modules</h2>
+	<!-- <section><h3>Overview</h3>
+		<dl class="fa">
+			<dt><span class="note">why</span> we need to bother with lazy-loading?</dt>
+			<dd>Check <a href="https://www.npmjs.com/package/webpack-bundle-analyzer">webpack-bundle-analyzer</a></dd>
+			<pre><code rel="TS" class="typescript">
+				npm install --save-dev webpack-bundle-analyzer
+			</code></pre>
+			<dd>Usage:</dd>
+			<pre><code rel="package.json" class="js">
+				...
+				"scripts": {
+					"ng": "ng",
+					"start": "ng serve",
+					"build": "ng build",
+					"test": "ng test",
+					"lint": "ng lint",
+					"e2e": "ng e2e",
+					"build:stats": "ng build --stats-json",
+					"analyze": "webpack-bundle-analyzer dist/test-app/stats-es2015.json"
+				},
+				../
+			</code></pre>
+			<pre><code rel="Terminal" class="bash">
+				npm run build:stats
+				npm run analyze
+			</code></pre>
+		</dl>
+		<p>Reference: <a href="https://alligator.io/angular/angular-webpack-bundle-analyzer/">Angular: Performance Analysis with webpack Bundle Analyzer</a></p>
+	</section> -->
+	<section><h3>Overview</h3>
+		<dl class="fa">
+			<dt><span class="note">Lazy-loading modules</span> - a design pattern that <span class="note">loads modules when they are needed</span>.</dt>
+			<dt>Lazy loading helps keep initial bundle sizes smaller, which in turn helps decrease load times.</dt>
+			<dt>For large apps with lots of routes, consider lazy loading.</dt>
+			<dt>By default, NgModules are <span class="note">eagerly loaded</span> - modules are <span class="note">loaded as soon as the app loads</span>, whether or not they are immediately necessary.</dt>
+			<dt>Reference: <a href="https://angular.io/guide/lazy-loading-ngmodules">Lazy-loading feature modules</a> @angular/guide</dt>
+		</dl>
+	</section>
+</section>
+
+<section data-min="50"><h1>Creating a modularized app</h1></section>
+<section><h2>Creating a modularized app</h2>
+	<section><h3>Overview</h3>
+		<p>For the purpose of next demo, we will create a minimal Angular app, with three modules:</p>
+		<dl class="fa">
+			<dt>Module A - a feature module</dt>
+			<dt>Module B - a shared module</dt>
+			<dt>ModuleLazy - a lazy-loaded module</dt>
+		</dl>
+	</section>
+	<section><h3>Create the app and modules</h3>
+		<pre><code rel="Terminal" class="bash">
+			# create a minimal Angular app:
+			ng new test-app --minimal
+
+			# create the three modules in /app folder, and let CLI include them into app module:
+			ng g m moduleA --module app
+			ng g m moduleB --module app
+			ng g m moduleLazy --module app
+		</code></pre>
+	</section>
+	<section><h3>app.module.ts</h3>
+		<p>Because we've used the <code>--module app</code> option, Angular CLI had auto-imported our new modules into the main app modules:</p>
+		<pre><code rel="app.module.ts" class="js">
+			import { BrowserModule } from '@angular/platform-browser';
+			import { NgModule } from '@angular/core';
+
+			import { AppComponent } from './app.component';
+			import { ModuleAModule } from './module-a/module-a.module';
+			import { ModuleBModule } from './module-b/module-b.module';
+			import { ModuleLazyModule } from './module-lazy/module-lazy.module';
+
+
+			@NgModule({
+				declarations: [
+						AppComponent
+				],
+				imports: [
+						BrowserModule,
+						ModuleAModule,
+						ModuleBModule,
+						ModuleLazyModule,
+				],
+				providers: [],
+				bootstrap: [AppComponent]
+			})
+			export class AppModule { }
+
+		</code></pre>
+	</section>
+	<section><h3>What's in a module?</h3>
+		<p>The Angular CLI have genreted for us the file with the general structure of an NgModule:</p>
+		<pre><code rel="module-a.module.ts" class="js">
+			import { NgModule } from '@angular/core';
+			import { CommonModule } from '@angular/common';
+			import { ComponentAComponent } from './component-a/component-a.component';
+
+
+			@NgModule({
+				declarations: [ComponentAComponent],
+				imports: [
+					CommonModule
+				]
+			})
+			export class ModuleAModule { }
+
+		</code></pre>
+		<dl class="fa" style="font-size: 0.8em;">
+			<dt>Note, that the modules we've created with CLI did not import the <code>BrowserModule</code>, as we do not need it (it's already imported in the app.module.ts), but have imported the <code>CommonModule</code></dt>
+			<dd>More on <a href="https://angular.io/api/common/CommonModule">CommonModule</a></dd>
+		</dl>
+	</section>
+	<section><h3>Create the components - TASK</h3>
+		<p>Create one component en each module, so that your /app tree looks like:</p>
+		<pre><code rel="tree app/" class="bash">
+			app/
+			├── app.component.ts
+			├── app.module.ts
+			├── module-a
+			│   ├── component-a
+			│   │   └── component-a.component.ts
+			│   └── module-a.module.ts
+			├── module-b
+			│   ├── component-b
+			│   │   └── component-b.component.ts
+			│   └── module-b.module.ts
+			└── module-lazy
+						├── component-lazy
+						│   └── component-lazy.component.ts
+						└── module-lazy.module.ts
+		</code></pre>
+	</section>
+	<section><h3>Create the components - TASK</h3>
+		<p>Make sure, that each component is declared into its module, like:</p>
+		<pre><code rel="JS" class="js">
+			import { NgModule } from '@angular/core';
+			import { CommonModule } from '@angular/common';
+			import { ComponentAComponent } from './component-a/component-a.component';
+
+
+			@NgModule({
+				declarations: [ComponentAComponent],
+				imports: [
+						CommonModule
+				]
+			})
+			export class ModuleAModule { }
+		</code></pre>
+	</section>
+	<section><h3>Share a component</h3>
+		<dl class="fa">
+			<dt>If we want to share a component form one module with other modules,<span class="note"> we have to export it</span></dt>
+			<dt>Let's export ComponentB, so that we can use it in app module</dt>
+		</dl>
+		<pre><code rel="module-b.module.ts" class="js">
+			import { NgModule } from '@angular/core';
+			import { CommonModule } from '@angular/common';
+
+			import { ComponentBComponent } from './component-b/component-b.component';
+
+			@NgModule({
+				declarations: [ComponentBComponent],
+				imports: [
+					CommonModule
+				],
+				exports:[
+					// make ComponentB available to other modules
+					ComponentBComponent
+				]
+			})
+			export class ModuleBModule { }
+		</code></pre>
+		<dl class="fa">
+			<dt>Now, we can use ComponentB in any app component by using its selector:</dt>
+		</dl>
+		<pre><code rel="app.component.ts" class="html5">
+			template: `
+				<app-component-b></app-component-b>
+			`,
+		</code></pre>
+	</section>
+	<section><h3>Create lazy-loading module</h3>
+		<dl class="fa">
+			<dt>The lazy-loaded module must have its own routing module (module-lazy-routing.module.ts)</dt>
+			<dt>The lazy-loaded routing module must use the <code>RouterModule.forChild(routes)</code> in its imports, instead of <code>imports: [RouterModule.forRoot(routes)],</code> used in the AppRoutingModule</dt>
+			<dt>The Routes for lazy-loaded module must be set in AppRoutingModule using the <code>loadChildren</code> property.</dt>
+			<dt>We can automate the process of creating a lazy-loading module using the CLI <code>--route</code> option:</dt>
+		</dl>
+		<pre><code rel="Terminal" class="bash">
+			ng generate module module-lazy --route lazy --module app.module
+		</code></pre>
+		<dl class="fa">
+			<dt>But in next slides, I'll show the process of manually converting our already created <code>module-lazy</code> into lazy-loading module, in order to understand the steps.</dt>
+		</dl>
+	</section>
+	<section><h3>Create Lazy-loading module - the AppRoutingModule</h3>
+		<p>The steps for creating a Lazy-loading module are:</p>
+		<dl class="fa">
+			<dt>A module, which is intended to be lazy-loaded must be added to the AppRoutingModule routes, but using the <code>loadChildren</code> (instead of component) for the given <code>path.</code></dt>
+			<dt>So let's add a AppRoutingModule (app-routing.module.ts) to our app (if we did not create one), and point that there will be a lazy-loaded modules with the <code>loadChildren</code> properly:</dt>
+		</dl>
+		<pre><code rel="app-routing.module.ts" class="js">
+			import { NgModule } from '@angular/core';
+			import { Routes, RouterModule } from '@angular/router';
+
+			const routes: Routes = [
+				{
+					path: 'lazy',
+					loadChildren: () => import('./module-lazy/module-lazy.module')
+						.then(m => m.ModuleLazyModule) }
+			];
+
+			@NgModule({
+				imports: [RouterModule.forRoot(routes)],
+				exports: [RouterModule]
+			})
+			export class AppRoutingModule { }
+		</code></pre>
+	</section>
+	<section><h3>The module-lazy-routing.module.ts</h3>
+		<dl class="fa">
+			<dt>In the imports section of our <code>module-lazy-routing.module.ts</code> we must use <code>RouterModule.forChild(routes)</code></dt>
+		</dl>
+		<pre><code rel="module-lazy-routing.module.ts" class="js">
+			import { NgModule } from '@angular/core';
+			import { Routes, RouterModule } from '@angular/router';
+
+			import { ComponentLazyComponent } from "./component-lazy/component-lazy.component";
+
+			const routes: Routes = [{ path: '', component: ComponentLazyComponent }];
+
+			@NgModule({
+				imports: [RouterModule.forChild(routes)],
+				exports: [RouterModule]
+			})
+			export class ModuleLazyRoutingModule { }
+		</code></pre>
+	</section>
+	<section><h3>The module-lazy.module.ts</h3>
+		<dl class="fa">
+			<dt>In our ModuleLazyModule we must import the ModuleLazyRoutingModule</dt>
+		</dl>
+		<pre><code rel="module-lazy.module.ts" class="js">
+			import { NgModule } from '@angular/core';
+			import { CommonModule } from '@angular/common';
+
+			import { ModuleLazyRoutingModule } from "./module-lazy-routing.module";
+			import { ComponentLazyComponent } from './component-lazy/component-lazy.component';
+
+			@NgModule({
+				declarations: [ComponentLazyComponent],
+				imports: [
+						CommonModule,
+						ModuleLazyRoutingModule
+				]
+			})
+			export class ModuleLazyModule { }
+		</code></pre>
+	</section>
+	<section><h3>Add router-outlet and navigation links:</h3>
+		<dl class="fa">
+			<dt>Of course, we must add a &lt;router-outlet&gt;&lt;/router-outlet&gt; in order to display the ModuleLazyModule components, and navigation link:</dt>
+		</dl>
+		<pre><code rel="app.component.ts" class="js">
+			import { Component } from '@angular/core';
+
+			@Component({
+				selector: 'app-root',
+				template: `
+					&lt;app-component-b&gt;&lt;/app-component-b&gt;
+					&lt;a routerLink=&#39;lazy&#39;&gt;lazy module&lt;/a&gt;
+					&lt;router-outlet&gt;&lt;/router-outlet&gt;
+				`,
+				styles: []
+			})
+			export class AppComponent {
+				title = 'test-app';
+			}
+		</code></pre>
+	</section>
+</section>
+
+
+<section id="hw" data-min="4"><h1>Exercises</h1></section>
+<section><h2>Task1: add lazy-loaded module</h2>
+	<section><h3>The Task</h3>
+		<dl class="fa">
+			<dt>Make our <code>todo-details</code> component to be lazy loaded</dt>
+		</dl>
+	</section>
+</section>
+
+
+
+<section class="disclaimer" data-background="/ProgressBG-Angular-Crash-Course-Slides/outfit/images/for_slides/the_end_on_sand.jpg">
+	<p>These slides are based on</p>
+	<p>customized version of </p>
+	<p><a href="http://hakim.se/">Hakimel</a>'s <a href="http://lab.hakim.se/reveal-js">reveal.js</a></p>
+	 <p>framework</p>
+</section>
+<!--
+########################################################
+##################### SLIDES END   #####################
+########################################################
+-->
+		</div>
+	</div>
+	<!-- Custom processing -->
+	<script src="/ProgressBG-Angular-Crash-Course-Slides/outfit/js/slides.js"></script>
+	<!-- external scripts -->
+
+	<script src="/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/js/reveal.js"></script>
+
+	<!-- init reveal -->
+	<script>
+		// Full list of configuration options available at:
+		// https://github.com/hakimel/reveal.js#configuration
+		var highlightjsTabSize = '  ';
+		Reveal.initialize({
+			controls: true,
+			progress: true,
+			slideNumber: 'c/t',
+			keyboard: true,
+			history: true,
+
+			// display control
+			// center: true,
+			// width: '100%',
+			// height: '100%',
+			// // Factor of the display size that should remain empty around the content
+			// margin: 0.1,
+
+			// The "normal" size of the presentation, aspect ratio will be preserved
+			// when the presentation is scaled to fit different resolutions. Can be
+			// specified using percentage units.
+			width: 1280,
+			height: 1024,
+
+			// Factor of the display size that should remain empty around the content
+			margin: 0.1,
+
+			// Bounds for smallest/largest possible scale to apply to content
+			// minScale: 0.2,
+			// maxScale: 1.5,
+
+			// slide transition
+			transition: 'concave', // none/fade/slide/convex/concave/zoom
+			// shift+mouse click to zoom in/out element
+			zoomKey: 'ctrl',
+			// theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+			// transition: Reveal.getQueryHash().transition || 'default'
+			// Optional reveal.js plugins
+			dependencies: [
+				{ src: '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+				{ src: '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+				{ src: '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+				{ src: '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.configure({tabReplace: highlightjsTabSize}); hljs.initHighlightingOnLoad(); } },
+				{ src: '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/plugin/zoom-js/zoom.js', async: true },
+				{ src: '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/plugin/notes/notes.js', async: true }
+			]
+		});
+	</script>
+	<!-- linkedin badge -->
+	<script type="text/javascript" src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
+</body>
+</html>

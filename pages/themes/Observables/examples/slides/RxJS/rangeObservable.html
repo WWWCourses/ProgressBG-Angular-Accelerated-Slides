@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>rangeObservable</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/6.2.1/rxjs.umd.min.js"></script>
+<script type="text/javascript">
+	const { Observable, from, range, of, pipe } = rxjs;
+	const { reduce, map, filter, switchMap } = rxjs.operators;
+
+	// create the observable:
+	let source$ = of([1,2,3,4,5]);
+
+	// transform data using RxJS operators
+	let transformedSource$ = source$.pipe(
+		reduce( (x,y) => x+y)
+	)
+
+
+	// subscribe to the transformed data
+	transformedSource$
+  	.subscribe(x => console.log(x));
+</script>
+</html>

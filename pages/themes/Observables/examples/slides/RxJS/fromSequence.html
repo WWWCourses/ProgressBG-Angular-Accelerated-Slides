@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>fromSequence</title>
+</head>
+<body>
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/6.5.5/rxjs.umd.min.js"></script>
+<script type="text/javascript">
+	const { from, pipe } = rxjs;
+	const { filter, map } = rxjs.operators;
+
+	const source = from([1, 2, 3, 4, 5, 6, 7, 8, 9])
+		.pipe(
+			filter(x => x % 2),
+			map(x => x * 2),
+		)
+
+	source.subscribe(x => console.log(x))
+
+</script>
+</html>

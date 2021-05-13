@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Routers</title>
+	<link rel="shortcut icon" href="/ProgressBG-Angular-Crash-Course-Slides/favicon.ico">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+	<!-- css & themes include -->
+	<link rel="stylesheet" href="/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/css/reveal.css">
+	<link rel="stylesheet" href="/ProgressBG-Angular-Crash-Course-Slides/outfit/css/themes/projector.css" id="theme">
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement( 'link' );
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match( /print-pdf/gi ) ? '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/css/print/pdf.css' : '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/css/print/paper.css';
+		document.getElementsByTagName( 'head' )[0].appendChild( link );
+	</script>
+	<!--[if lt IE 9]>
+	<script src="lib/js/html5shiv.js"></script>
+	<![endif]-->
+	<!-- CUSTOM -->
+	<base target="_blank">
+</head>
+<body>
+	<div class="reveal default center" data-transition-speed="default" data-background-transition="default">
+		<div class="top_links">
+			<a class="home_link" href="/index.html#Routers" target="_top"><i class="fa fa-home"></i></a>
+			<span class="help_link" href="#"><i class="fa fa-question"></i></span>
+			<div class="help_text">
+				<div><span>N/Space</span><span>Next Slide</span></div>
+				<div><span>P</span><span>Previous Slide</span></div>
+				<div><span>O</span><span>Slides Overview</span></div>
+				<div><span>ctrl+left click</span><span>Zoom Element</span></div>
+			</div>
+		</div>
+		<div class="footer theme_switch">
+			<a href="#" onclick="document.getElementById('theme').setAttribute('href','/ProgressBG-Angular-Crash-Course-Slides/outfit/css/themes/dark.css'); return false;">Dark</a>
+			<a href="#" onclick="document.getElementById('theme').setAttribute('href','/ProgressBG-Angular-Crash-Course-Slides/outfit/css/themes/light.css'); return false;">Light</a>
+			<a href="#" onclick="document.getElementById('theme').setAttribute('href','/ProgressBG-Angular-Crash-Course-Slides/outfit/css/themes/projector.css'); return false;">Projector</a>
+		</div>
+		<div class="slides">
+<!--
+########################################################
+##################### SLIDES START #####################
+########################################################
+-->
+<section data-min-total="240"><h1>Routers</h1></section>
+<section data-transition="zoom">
+	<div class="copyright">
+		<div class="note">
+			<p>Created for</p>
+		</div>
+		<div class="company">
+			<a href="http://progressbg.net/kurs-po-web-design/">
+			<img style="height:80%" src="/ProgressBG-Angular-Crash-Course-Slides/outfit/images/logos/ProgressBG_logo_529_127.png">
+			</a>
+		</div>
+		<div class="author">
+			<span>Iva E. Popova, 2016-2020,</span>
+			<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a>
+		</div>
+	</div>
+</section>
+
+<section data-min="5"><h1>Prepare the Demo Project</h1></section>
+<section><h2>Prepare the Demo Project</h2>
+	<section><h3>Create the Demo App</h3>
+		<dl class="fa">
+			<dt>In next slides, the examples will be based on a project with next components:</dt>
+			<dd><span class="note">nav</span> - to represent the Navigation menu view</dd>
+			<dd><span class="note">home</span> - to represent the Home view</dd>
+			<dd><span class="note">about</span> - to represent the About view</dd>
+			<dd><span class="note">contacts</span> - to represent the Contacts view</dd>
+		</dl>
+	</section>
+	<section><h3>Create the Demo App</h3>
+		<dl class="fa">
+			<!-- <dt>You can download the basic app as zip: <a href="examples/labs/basicRouter.zip">basicRouter.zip</a></dt> -->
+			<dt>Create the demo app with next components:</dt>
+		</dl>
+		<pre><code rel="Terminal" class="bash" data-noescape>
+			# create the project:
+			ng new routing-app --routing
+
+			# create components:
+			ng g c -t  nav
+			ng g c -t  home
+			ng g c -t  about
+			ng g c -t  contacts
+		</code></pre>
+	</section>
+</section>
+
+<section data-min="10"><h1>Routing in Angular - Overview</h1></section>
+<section><h2>Routing - basic concepts</h2>
+	<section><h3>What and Why?</h3>
+		<dl class="fa" style="font-size: .8em">
+			<dt>Routing is the mechanism by which we can map a URL to certain component/view of our application.</dt>
+			<dt>In SPA we want a certain part of our page to display different components/view without the whole page reload.</dt>
+			<dt>Angular provides its own Routing mechanism, which allows the structure of an application to be kept apart from the components and templates in the application.</dt>
+			<dt>*ngIf and *ngSwithch directive can be used to provide similar to Routing effects, but for complex applications the Routing mechanism is the preferred way.</dt>
+		</dl>
+	</section>
+	<section style="font-size: .8em"><h3>A separate module for Routing</h3>
+		<dl class="fa">
+			<dt>A best practice is to configure and load the router in a separate, top-level module concerned only to routing.</dt>
+			<dt>By convention, the module name is <code>app-routing.module.ts</code>:</dt>
+			<dt>You can create it by hand or with angular-cli. And it content should be:</dt>
+		</dl>
+		<pre><code rel="src/app/app-routing.module.ts" class="bash" data-noescape>
+			import { NgModule } from '@angular/core';
+			import { Routes, RouterModule } from '@angular/router';
+
+			const routes: Routes = [];
+
+			@NgModule({
+				imports: [RouterModule.forRoot(routes)],
+				exports: [RouterModule]
+			})
+			export class AppRoutingModule { }
+		</code></pre>
+		<dl class="fa">
+			<dt>Of course, we need to import the <code>app-routing.module.ts</code> into our app.module.ts</dt>
+		</dl>
+	</section>
+	<section><h3>A separate module for Routing - how to</h3>
+		<dl class="fa">
+			<dt>The easiest way to create the Routing module, is when you start a new project with CLI, to add the option <code>--routing</code>:</dt>
+			<pre><code rel="Terminal" class="basj">
+				ng new app-name --routing
+			</code></pre>
+			<dd>If you do not pass the "--routing" option explicitely, angular-cli should ask you, if you want to create Routing Module.</dd>
+		</dl>
+	</section>
+	<section><h3>A separate module for Routing - how to</h3>
+		<dl class="fa">
+			<dt>If you have existing project, without router module, you can create it with:</dt>
+			<pre><code rel="Terminal" class="bash">
+				ng generate module app-routing --flat --module=app
+
+				# --flat will generate the file 'app-routing.module.ts' in src/app/ folder,
+				# --module=app will register it in the imports array of the AppModule.
+			</code></pre>
+			<dt>You should replace <code>app-routing.module.ts</code> content with:</dt>
+			<pre><code rel="src/app/app-routing.module.ts" class="ts">
+				import { NgModule } from '@angular/core';
+				import { Routes, RouterModule } from '@angular/router';
+
+				const routes: Routes = [];
+
+				@NgModule({
+					imports: [RouterModule.forRoot(routes)],
+					exports: [RouterModule]
+				})
+				export class AppRoutingModule { }
+			</code></pre>
+		</dl>
+	</section>
+	<section><h3>Configuring Routes</h3>
+		<dl class="fa">
+			<dt>As Route is a mapping between a URL and a component, a typical Angular Route has two properties </dt>
+			<dd><span class="note">path</span>: a string that matches the URL in the browser address bar.</dd>
+			<dd><span class="note">component</span>: the component that the router should create when navigating to this route.</dd>
+		</dl>
+	</section>
+	<section><h3>Configuring Routes</h3>
+		<dl class="fa">
+			<dt>We define our routes in <code>const routes: Routes = []</code> array, where each route is a JavaScript object that contains two properties.</dt>
+		</dl>
+		<pre><code rel="app-routing.module.ts" class="typescript">
+			const routes: Routes = [
+				{ path: 'about', component: AboutComponent },
+				{ path: 'contacts', component: ContactsComponent },
+				{ path: 'home', component: HomeComponent },
+			];
+		</code></pre>
+		<dl class="fa">
+			<dt class="note">We need to import each component, as well</dt>
+		</dl>
+	</section>
+	<section><h3 class="advanced">Optimize the imports</h3>
+		<dl class="fa" style="font-size: .8em">
+			<dt>We can prevent the repeating of imports for components which will be routed, by importing them only in <code>app-routing.module.ts</code> and exporting them as an array to <code>app.module.ts</code></dt>
+		</dl>
+		<pre><code rel="app-routing.module.ts" class="typescript">
+			...
+			export class AppRoutingModule { }
+			export const routingComponents = [
+				AboutComponent,
+				ContactsComponent,
+				HomeComponent
+			]
+		</code></pre>
+		<pre><code rel="app.module.ts" class="typescript">
+			import { AppRoutingModule, routingComponents } from './app-routing.module';
+		</code></pre>
+	</section>
+</section>
+
+<section data-min="20"><h1>Add router links</h1></section>
+<section><h2>Add router links</h2>
+	<section><h3>The navigation links</h3>
+		<dl class="fa">
+			<dt>We have to put links to our routing components, by using the  <code>routerLink</code> directive</dt>
+			<dt>To specify where the route component should be rendered we use the  &lt;router-outlet&gt;&lt;/router-outlet&gt;</dt>
+		</dl>
+		<pre><code rel="nav.component.html" class="html5">
+			<nav>
+			<ul>
+				<li><a routerLink="/home" routerLinkActive="active" >Home</a></li>
+				<li><a routerLink="/about" routerLinkActive="active" >About</a></li>
+				<li><a routerLink="/contacts" routerLinkActive="active" >Contacts</a></li>
+			</ul>
+			</nav>
+			<!-- The routed views render in the <router-outlet>-->
+			<router-outlet></router-outlet>
+		</code></pre>
+	</section>
+	<section><h3>The RouterOutlet</h3>
+		<dl class="fa">
+			<dt>The <code>&lt;router-outlet&gt;</code> is a router directive that tells the Router where to display routed views</dt>
+			<dt>Each component which is mapped to a URL will be displayed in the <code>&lt;router-outlet&gt;</code> after the URL is activated.</dt>
+		</dl>
+	</section>
+</section>
+
+<section data-min="20"><h1>Route Matching</h1></section>
+<section><h2>Route Matching</h2>
+	<section><h3>Default Route</h3>
+		<dl class="fa">
+			<dt>We need to have a route for "empty" path, in order to match URLs without path, like <a href="#">http://localhost:4200/</a></dt>
+		</dl>
+		<pre><code rel="TS" class="typescript">
+			{ path: '', redirectTo: '/home', pathMatch: 'full' },
+		</code></pre>
+	</section>
+	<section><h3>Route for "Page not found" - the wildcard matching</h3>
+		<dl class="fa">
+			<dt>Any URLs which do not match a route have to point to the "Page not found" component</dt>
+			<dt>First, we need to create the "page-not-found" component</dt>
+			<pre><code rel="Terminal" class="bash" data-noescape>
+				ng g c PageNotFound
+			</code></pre>
+			<dt>And then specify the path to match "**"</dt>
+		</dl>
+		<pre><code rel="TS" class="typescript">
+			{ path: '**', component: PageNotFoundComponent },
+		</code></pre>
+		<dl class="fa">
+			<dt class="note">The ** matches any URL, including child paths.</dt>
+			<dd>It should be the <span class="note">last</span> route, specified in routes list, otherwise "Page not found" component will be displayed for any route!</dd>
+		</dl>
+	</section>
+	<section><h3>Angular Router Matching</h3>
+		<dl class="fa">
+			<dt>The order of routes is important because the Router uses a <i>first-match wins</i> strategy when matching routes.</dt>
+			<dt>Angular Router starts matching URLs to routes, starting from the first route in the list</dt>
+			<dt>If it finds a match, it stops the matching process</dt>
+			<dt>I.e. <span class="note">more specific routes should be placed above less specific routes</span></dt>
+			<dt>The wildcard route comes last because it matches every URL and the Router selects it only if no other routes match first.</dt>
+		</dl>
+	</section>
+</section>
+
+<section data-min="10"><h1>Route params</h1></section>
+<section><h2>Route params</h2>
+	<section><h3>The List => Detail relation</h3>
+		<dl class="fa">
+			<dt>We can pass values when navigating from one component to the other.</dt>
+			<dt>We need that, when we have components related as List => Detail</dt>
+			<dt>Let's make the 2 components:</dt>
+		</dl>
+		<pre><code rel="TS" class="typescript">
+			ng g c -t  BooksList
+			ng g c -t  BookDetails
+		</code></pre>
+	</section>
+	<section><h3>The List Component Template</h3>
+		<pre><code rel="book-list.component.ts" class="typescript">
+			template: `
+				&lt;ol&gt;
+					&lt;li *ngFor=&quot;let book of books&quot;&gt;
+						&lt;a routerLink=&quot;/book/{{book.id}}&quot;&gt;
+							&lt;span&gt;{{book.name}}&lt;/span&gt;
+						&lt;/a&gt;
+					&lt;/li&gt;
+				&lt;/ol&gt;
+			`,
+		</code></pre>
+	</section>
+	<section><h3>Add the List => Detail Routes</h3>
+		<pre><code rel="app-routing.module.ts" class="typescript">
+			{ path: 'books', component: BooksListComponent },
+			{ path: 'book/:id', component: BookDetailsComponent },
+		</code></pre>
+	</section>
+	<section><h3>Pass the id route parameter from List to Details Component</h3>
+		<pre><code rel="JS" class="js" >
+			import { Component, OnInit } from '@angular/core';
+			import { Router } from '@angular/router'
+
+			@Component({
+				selector: 'app-book-list',
+				template: `
+					&lt;ol&gt;
+						&lt;li *ngFor=&quot;let book of books&quot; (click)=&quot;onBookClick(book)&quot;&gt;
+							&lt;a routerLink=&quot;/book/{{book.id}}&quot;&gt;
+								&lt;span&gt;{{book.name}}&lt;/span&gt;
+							&lt;/a&gt;
+						&lt;/li&gt;
+					&lt;/ol&gt;
+				`,
+				styleUrls: ['./book-list.component.css']
+			})
+			export class BookListComponent implements OnInit {
+				books = [
+					{id: 1, name: "Player Piano"},
+					{id: 2, name: "God Bless You, Mr. Rosewater"},
+					{id: 3, name: "The Sirens of Titan"},
+					{id: 4, name: "Cat's Cradle"},
+					{id: 5, name: "Mother Night"}
+				]
+
+				// inject the router object:
+				constructor(private router: Router) { }
+
+				ngOnInit() {
+				}
+				onBookClick(book){
+					this.router.navigate(['/books', book.id])
+				}
+			}
+		</code></pre>
+	</section>
+	<section><h3>Extract the id route parameter</h3>
+		<dl class="fa">
+			<dt>The route path and parameters are available through an injected router service: <a href="https://angular.io/api/router/ActivatedRoute">ActivatedRoute</a>.</dt>
+		</dl>
+		<pre><code rel="book-details.component.ts" class="typescript">
+			import { ActivatedRoute } from '@angular/router';
+			import { Location } from '@angular/common';
+			import { Component, OnInit } from '@angular/core';
+
+
+			@Component({
+				selector: 'app-book-detail',
+				template: `
+					<p>
+						book-detail for {{bookId}}!
+					</p>
+				`,
+				styleUrls: ['./book-detail.component.css']
+			})
+			export class BookDetailComponent implements OnInit {
+				bookId;
+
+				constructor(private route:ActivatedRoute) { }
+
+				ngOnInit() {
+					this.bookId = parseInt(this.route.snapshot.paramMap.get('id'));
+				}
+
+			}
+		</code></pre>
+	</section>
+</section>
+
+<section data-min="5"><h1>More on routerLink directive</h1></section>
+<section><h2>More on routerLink directive</h2>
+	<section><h3>Differences between routerLink and href</h3>
+		<dl class="fa">
+			<dt>routerLink directive can be used as attribute on A elements, just like the href HTML attribute, but they behave quite different.</dt>
+			<dt>The href HTML attribute will <span class="note">send request to the server</span> and the page will be reloaded.</dt>
+			<dt>The routerLink directive is not sending any request, just the component view will be rendered in the router outlet</dt>
+		</dl>
+	</section>
+	<section><h3>Differences between routerLink and href - Live Demo</h3>
+		<dl class="fa">
+			<dt>Add another link with <code>href="/books"</code> in nav.component.html and open the Network tab in Chrome Dev Tools.</dt>
+		</dl>
+		<pre><code rel="nav.component.html" class="html5">
+			<li><a routerLink="/books" routerLinkActive="active" >Books List</a></li>
+			<li><a href="/books">Books List as href</a></li>
+		</code></pre>
+	</section>
+	<section><h3>routerLink usage</h3>
+		<dl class="fa">
+			<dt>If the link is static, you can use the directive as attribute:</dt>
+			<pre><code rel="HTML" class="html5">
+				<a routerLink="/books">books list</a>
+			</code></pre>
+			<dt>If the link uses dynamic values, i.e. route parameters, we can pass an array of path segments, followed by the params for each segment:</dt>
+			<pre><code rel="HTML" class="html5">
+				<a [routerLink]="['/book/', book.id]">book detail</a>
+			</code></pre>
+		</dl>
+	</section>
+</section>
+
+<section data-min="5"><h1>Active router links</h1></section>
+<section><h2>Active router links</h2>
+	<section><h3>Overview</h3>
+		<dl class="fa">
+			<dt>The RouterLinkActive directive toggles CSS classes for the active RouterLink </dt>
+		</dl>
+		<pre><code rel="Syntax" class="html5">
+			<a routerLinkActive="space-delimited string of CSS classes"></a>
+		</code></pre>
+		<dl class="fa">
+			<dt>The Router will adds the CSS classes when the link is active, and will removes them when the link is inactive</dt>
+		</dl>
+	</section>
+	<section><h3></h3>
+		<pre><code rel="nav.component.html" class="html5">
+			<nav>
+				<ul>
+					<li><a routerLink="/home" routerLinkActive="active" >Home</a></li>
+					<li><a routerLink="/about" routerLinkActive="active" >About</a></li>
+					<li><a routerLink="/contacts" routerLinkActive="active" >Contacts</a></li>
+					<li><a routerLink="/books" routerLinkActive="active" >Books List</a></li>
+				</ul>
+			</nav>
+			<!-- The routed views render in the <router-outlet>-->
+			<router-outlet></router-outlet>
+		</code></pre>
+		<pre><code rel="nav.component.css" class="css">
+			.active{
+				color: red;
+			}
+		</code></pre>
+	</section>
+</section>
+
+
+<section data-min="10"><h1>More on RouterOutlet</h1></section>
+<section><h2>More on RouterOutlet</h2>
+	<section><h3>Named RouterOutlet</h3>
+		<dl class="fa">
+			<dt>We can use named outlets to load multiple components side by side instead of nesting them.</dt>
+			<dt>Named outlet is created by specifying the name attribute on the RouterOutlet directive.</dt>
+		</dl>
+		<pre><code rel="app.component.html" class="html">
+			<app-nav></app-nav>
+			<router-outlet></router-outlet>
+			<router-outlet name="bookList"></router-outlet>
+		</code></pre>
+	</section>
+	<section><h3>Output to a named Router Outlet</h3>
+		<dl class="fa">
+			<dt>We can specify the router outlet name as routes parameter:</dt>
+		</dl>
+		<pre><code rel="TS" class="typescript">
+			{
+				path: 'books',
+				component: BooksListComponent,
+				outlet:'bookList'
+			},
+		</code></pre>
+		<pre><code rel="HTML" class="html">
+			<li><a [routerLink]="[{outlets:{bookList:['books']}}]" routerLinkActive="active" >Books List</a></li>
+		</code></pre>
+	</section>
+</section>
+
+<section data-min="20"><h1>Live Demo && Exercises</h1></section>
+<section><h2>Live Demo && Exercises</h2>
+	<section><h3>Todo App Routs</h3>
+		<dl class="fa">
+			<dt>Configure next 2 routes:</dt>
+			<dd><span class="note">/</span> => redirect to /todos</dd>
+			<dd><span class="note">/todos</span> => show list of todos.</dd>
+		</dl>
+	</section>
+</section>
+
+<!--
+The Router Module
+Passing and fetching Router parameters
+Extract Data from Router
+Route Configuration
+Redirecting and Wildcard Routes
+Protecting Routes
+Controlling Navigation
+Hands on the Demo Project -->
+
+
+<!-- <section data-min="1"><h1>References</h1></section>
+<section><h2>References</h2>
+	<section><h3>Readings</h3>
+		<dl class="fa">
+			<dt></dt>
+		</dl>
+	</section>
+</section>
+
+
+<section id="hw" data-min="4"><h1>Exercises</h1></section>
+<section><h2>Task1: Task1Title</h2>
+	<section><h3>The Task</h3>
+		<dl class="fa">
+			<dt></dt>
+		</dl>
+	</section>
+</section>
+
+<section><h3>Submission</h3>
+	<dl class="fa">
+		<dt>PLease, prefix your filenames/archive with your name initials, before sending.</dt>
+		<dd>For instance: <b>iep_task1.py</b> or <b>iep_tasks.rar</b></dd>
+		<dt>Send files to <a href="mailto:ProgressBG.WWW.Courses@gmail.com?Subject=_Routers_">ProgressBG.WWW.Courses@gmail.com</a></dt>
+	</dl>
+</section> -->
+
+
+<section class="disclaimer" data-background="/ProgressBG-Angular-Crash-Course-Slides/outfit/images/for_slides/the_end_on_sand.jpg">
+	<p>These slides are based on</p>
+	<p>customised version of </p>
+	<p><a href="http://hakim.se/">Hakimel</a>'s <a href="http://lab.hakim.se/reveal-js">reveal.js</a></p>
+	 <p>framework</p>
+</section>
+<!--
+########################################################
+##################### SLIDES END   #####################
+########################################################
+-->
+		</div>
+	</div>
+	<!-- Custom processing -->
+	<script src="/ProgressBG-Angular-Crash-Course-Slides/outfit/js/slides.js"></script>
+	<!-- external scripts -->
+
+	<script src="/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/js/reveal.js"></script>
+
+	<!-- init reveal -->
+	<script>
+		// Full list of configuration options available at:
+		// https://github.com/hakimel/reveal.js#configuration
+		var highlightjsTabSize = '  ';
+		Reveal.initialize({
+			controls: true,
+			progress: true,
+			slideNumber: 'c/t',
+			keyboard: true,
+			history: true,
+
+			// display control
+			// center: true,
+			// width: '100%',
+			// height: '100%',
+			// // Factor of the display size that should remain empty around the content
+			// margin: 0.1,
+
+			// The "normal" size of the presentation, aspect ratio will be preserved
+			// when the presentation is scaled to fit different resolutions. Can be
+			// specified using percentage units.
+			width: 1280,
+			height: 1024,
+
+			// Factor of the display size that should remain empty around the content
+			// margin: 0.1,
+
+			// Bounds for smallest/largest possible scale to apply to content
+			// minScale: 0.2,
+			// maxScale: 1.5,
+
+			// slide transition
+			transition: 'concave', // none/fade/slide/convex/concave/zoom
+			// shift+maous click to zoom in/out element
+			zoomKey: 'ctrl',
+			// theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+			// transition: Reveal.getQueryHash().transition || 'default'
+			// Optional reveal.js plugins
+			dependencies: [
+				{ src: '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+				{ src: '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+				{ src: '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+				{ src: '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.configure({tabReplace: highlightjsTabSize}); hljs.initHighlightingOnLoad(); } },
+				{ src: '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/plugin/zoom-js/zoom.js', async: true },
+				{ src: '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/plugin/notes/notes.js', async: true }
+			]
+		});
+	</script>
+	<!-- linkedin badge -->
+	<script type="text/javascript" src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
+</body>
+</html>

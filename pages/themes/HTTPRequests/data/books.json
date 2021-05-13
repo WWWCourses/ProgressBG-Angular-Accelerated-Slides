@@ -1,0 +1,22 @@
+[
+    {
+        "title":"Player Piano",
+        "author": "Kurt Vonnegut",
+        "price": 8.45
+    },
+    {
+        "title":"Cat's Cradle",
+        "author": "Kurt Vonnegut",
+        "price": 3.25
+    },
+    {
+        "title":"Steppenwolf",
+        "author": "Hermann Hesse",
+        "price": 5.20
+    },
+    {
+        "title":"Siddhartha",
+        "author": "Hermann Hesse",
+        "price": 4.60
+    }
+]

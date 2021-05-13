@@ -1,0 +1,678 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>DataBinding</title>
+	<link rel="shortcut icon" href="/ProgressBG-Angular-Crash-Course-Slides/favicon.ico">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+	<!-- css & themes include -->
+	<link rel="stylesheet" href="/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/css/reveal.css">
+	<link rel="stylesheet" href="/ProgressBG-Angular-Crash-Course-Slides/outfit/css/themes/projector.css" id="theme">
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement( 'link' );
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match( /print-pdf/gi ) ? '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/css/print/pdf.css' : '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/css/print/paper.css';
+		document.getElementsByTagName( 'head' )[0].appendChild( link );
+	</script>
+	<!--[if lt IE 9]>
+	<script src="lib/js/html5shiv.js"></script>
+	<![endif]-->
+	<!-- CUSTOM -->
+	<base target="_blank">
+</head>
+<body>
+	<div class="reveal default center" data-transition-speed="default" data-background-transition="default">
+		<div class="top_links">
+			<a class="home_link" href="/index.html#DataBinding" target="_top"><i class="fa fa-home"></i></a>
+			<span class="help_link" href="#"><i class="fa fa-question"></i></span>
+			<div class="help_text">
+				<div><span>N/Space</span><span>Next Slide</span></div>
+				<div><span>P</span><span>Previous Slide</span></div>
+				<div><span>O</span><span>Slides Overview</span></div>
+				<div><span>ctrl+left click</span><span>Zoom Element</span></div>
+			</div>
+		</div>
+		<div class="footer theme_switch">
+			<a href="#" onclick="document.getElementById('theme').setAttribute('href','/ProgressBG-Angular-Crash-Course-Slides/outfit/css/themes/dark.css'); return false;">Dark</a>
+			<a href="#" onclick="document.getElementById('theme').setAttribute('href','/ProgressBG-Angular-Crash-Course-Slides/outfit/css/themes/light.css'); return false;">Light</a>
+			<a href="#" onclick="document.getElementById('theme').setAttribute('href','/ProgressBG-Angular-Crash-Course-Slides/outfit/css/themes/projector.css'); return false;">Projector</a>
+		</div>
+		<div class="slides">
+<!--
+########################################################
+##################### SLIDES START #####################
+########################################################
+-->
+<section data-min-total="240"><h1>Data and Events Bindings</h1></section>
+<section data-transition="zoom">
+	<div class="copyright">
+		<div class="note">
+			<p>Created for</p>
+		</div>
+		<div class="company">
+			<a href="http://progressbg.net/kurs-po-web-design/">
+			<img style="height:80%" src="/ProgressBG-Angular-Crash-Course-Slides/outfit/images/logos/ProgressBG_logo_529_127.png">
+			</a>
+		</div>
+		<div class="author">
+			<span>Iva E. Popova, 2016-2020,</span>
+			<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a>
+		</div>
+	</div>
+</section>
+
+<section data-min="1"><h1>Overview</h1></section>
+<section><h2>Overview</h2>
+	<section>
+		<dl class="fa" style="font-size: .8em">
+			<dt><span class="note">data binding</span> == synchronization between elements of the component UI (<em>view</em>) and the data in the component class (<em>model</em>), and vice versa.</dt>
+		</dl>
+		<a href="images/AngularDataBinding_MY.png"><img src="images/AngularDataBinding_MY.png"></a>
+	</section>
+	<section>
+		<dl class="fa">
+			<dt>Data binding can control every aspect of the user interface:</dt>
+			<dd>hiding elements, showing results, closing things, accepting user input, and more</dd>
+			<dt>Data bindings are expressions embedded into templates and are evaluated to produce dynamic content in the HTML document.</dt>
+			<dt>Data bindings are applied as attributes on HTML elements or as special sequences of characters in strings</dt>
+			<dt>Data bindings contain simple JavaScript expressions.</dt>
+		</dl>
+	</section>
+	<section><h3>binding flows - diagram</h3>
+		<a href=""><img src="images/angular-data-binding-types.png" alt=""></a>
+	</section>
+	<section><h3>binding flows</h3>
+		<dl class="fa">
+			<dt class="note">One-way <b>data binding</b>:</dt>
+			<dd>data model => component class => (data binding expression) => template</dd>
+			<dt class="note">One-way <b>event binding</b>:</dt>
+			<dd>template => component class => data model</dd>
+			<dt class="note">Two-way data binding</dt>
+			<dd>data and event flows in both directions</dd>
+		</dl>
+	</section>
+	<section><h3>Data Binding Anatomy</h3>
+		<a href="images/AngularDataBindingAnatomy.png"><img src="images/AngularDataBindingAnatomy.png"></a>
+	</section>
+	<section><h3>Data Binding Anatomy</h3>
+		<dl class="fa" style="font-size: .8em">
+			<dt><span class="note">Host Element</span> - the HTML element that the binding will affect, by changing its appearance, content, or behaviour.</dt>
+			<dt><span class="note">Target</span> - specifies what the binding will do. There are two different types of target: a directive or a property binding.</dt>
+			<dt><span class="note">Expression</span> - a fragment of JavaScript code that is evaluated using the template’s component to provide context, i.e. the component’s property and methods can be included in the expression</dt>
+			<dt class="note">Expressions should be as simple as possible, as they can not be unit tested or easily debugged, thus are a source for potential bugs.</dt>
+		</dl>
+	</section>
+</section>
+
+<section data-min="10"><h1>Angular Template Syntax - review (and going deep)</h1></section>
+<section><h2>Angular Template Syntax - review</h2>
+	<section>
+		<dl class="fa">
+			<dt>Almost all valid HTML markup is available in the Template.</dt>
+			<dt>There are few exceptions</dt>
+			<dd><span class="note">script</span> element is not allowed.</dd>
+			<dd><span class="note">html</span>, <span class="note">body</span> and <span class="note">base</span> elements are just ignored.</dd>
+			<dt>The HTML vocabulary of the templates can be extended with components and directives that appear as new elements and attributes.</dt>
+		</dl>
+	</section>
+	<section><h3>Template Expression Interpolation</h3>
+		<pre><code rel="Syntax" class="javascript" data-noescape>
+			{{class_data}} or {{expression}}
+		</code></pre>
+		<pre style="font-size: .5em"><code rel="one-way-data-binding.component.html" class="HTML">
+			<ul>
+				<li>interpolate simple expression --->{{1+2*2}}</li>
+				<li>interpolate class value as HTML content: --->{{name.toUpperCase()}}</li>
+				<li class="{{note}}">interpolate class value as HTML attribute</li>
+			</ul>
+		</code></pre>
+	</section>
+	<section><h3>Template Expression notes</h3>
+		<dl class="fa">
+			<dt>A template expression must produces a value.</dt>
+			<dt>Template expression is written inside <code>{{}}</code> or for <em>property binding</em> - inside quotes <code>""</code> on the right side of <code>[property]="expression"</code></dt>
+			<dt>Angular executes template expressions after every change detection cycle.</dt>
+			<dt>A template expression should not change any application state other than the value of the target property/element.</dt>
+		</dl>
+	</section>
+	<section><h3>Template Statement Interpolation</h3>
+		<dl class="fa">
+			<dt>A template statement responds to an <b>event</b> raised by a binding element, component, or directive.</dt>
+			<dt>They are used in <em>event binding</em> (discussed further) as the right side of <code>(event)="statement"</code></dt>
+			<dt>Template Statements can have a side effects - i.e. the application state can be freely changed</dt>
+		</dl>
+	</section>
+	<section><h3>Different kind of Brackets</h3>
+		<table>
+			<colgroup>
+				<col style="width: 30%">
+				<col>
+			</colgroup>
+			<tr><th>Name</th><th>Description</th></tr>
+			<tr><td class="note">{{expression}}</td><td>string interpolation binding</td></tr>
+			<tr><td class="note">[target]="expr"</td><td>a one-way <span class="note">data</span> binding</td></tr>
+			<tr><td class="note">(target) ="expr"</td><td>a one-way <span class="note">event</span> binding</td></tr>
+			<tr><td class="note">[(target)] ="expr"</td><td><em>the banana-in-a-box</em> brackets specify a two-way data binding</td></tr>
+		</table>
+	</section>
+	<section><h3>Resources</h3>
+		<dl class="fa">
+			<dt>More on <a href="https://angular.io/guide/template-syntax#template-syntax">Template Syntax</a>@angular docs.</dt>
+		</dl>
+	</section>
+</section>
+
+
+<section data-min="10"><h1>Property Binding</h1></section>
+<section><h2>Property Binding</h2>
+	<section><h3>Overview</h3>
+		<dl class="fa">
+			<dt>Most commonly, property binding sets an element property to a component property value.</dt>
+			<dt>If <span class="note">binding target</span> is not a directive, then Angular checks to see whether the target can be used to create a property binding.</dt>
+			<dt>There are several different types of property binding</dt>
+		</dl>
+	</section>
+	<section><h3>Property binding types</h3>
+		<table style="font-size: .8em">
+			<tr><th>Name</th><th>Description</th></tr>
+			<tr><td class="note">[property]</td><td>set a property on the JavaScript object that represents the host element in the DOM</td></tr>
+			<tr><td class="note">[attr.name]</td><td>set the value of attributes on the host HTML element for which there are no DOM properties.</td></tr>
+			<tr><td class="note">[class.name]</td><td>configure class membership of the host element</td></tr>
+			<tr><td class="note">[style.name]</td><td>configure style settings of the host element</td></tr>
+		</table>
+	</section>
+	<section><h3>Property Binding: <code>[property]</code></h3>
+		<pre><code rel="Syntax" class="typescript">
+			[property]="expression"
+		</code></pre>
+		<dl class="fa">
+			<dt><code>property</code> is a DOM property, not HTML attribute.</dt>
+			<dt>The square brackets tells Angular to evaluate the expression and assign its value to the DOM property of the host element object.</dt>
+			<dt>If the square brackets are omitted, the expression would not be evaluated, and will be assigned as a string value to the property.</dt>
+		</dl>
+	</section>
+	<section><h3>HTML Attributes vs DOM Properties</h3>
+		<dl class="fa">
+			<dt class="note">Attributes initialize DOM properties!</dt>
+			<dt class="note">Attributes can not change! Property values can change!</dt>
+			<dd>For example, the HTML attribute <code>value</code> of an input field would not change, when we type in the input. Only the DOM <code>input</code> property would change</dd>
+			<dt>More on <a href="https://angular.io/guide/template-syntax#html-attribute-vs-dom-property">HTML attribute vs. DOM property</a>@angular docs.</dt>
+		</dl>
+	</section>
+	<section><h3>HTML Attributes vs DOM Properties - example</h3>
+		<pre><code rel="JS" class="js">
+			import { Component } from '@angular/core';
+
+			@Component({
+				selector: 'app-test-comp',
+				styles: [``],
+				template: `
+					user name: <input type="text" id="i1" value="ada">
+				`
+			})
+			export class TestCompComponent { }
+
+		</code></pre>
+		<p>Open DevTools Console and try to change the <span class="note">value propert</span> by typing <code>i1.value = "maria"</code> and see the <span class="note">value attribute</span> will not change.</p>
+	</section>
+	<section><h3>Attribute binding</h3>
+		<pre><code rel="Syntax" class="typescript" data-noescape>
+			[attr.html_attribute] = "expression"
+		</code></pre>
+		<dl class="fa">
+			<dt>You must use HTML attribute binding only in the case, where there are no equivalent property to bind to.</dt>
+		</dl>
+		<pre><code rel="Examples" class="html" data-escape>
+			&lt;p [attr.data-index]=&quot;pIndex&quot;&gt;Paragraph&lt;/p&gt;
+			&lt;p [attr.role]=&quot;tooltip&quot;&gt;Some content&lt;/p&gt;
+		</code></pre>
+		<dl class="fa">
+	</section>
+</section>
+
+<section data-min="10"><h1>Class Binding</h1></section>
+<section><h2>Class Binding</h2>
+	<section>
+		<pre><code rel="Syntax" class="typescript" data-noescape>
+			[class] = "expression"
+		</code></pre>
+		<dl class="fa">
+			<dt>With class binding we can set or remove CSS class names from an element's class attribute.</dt>
+			<dt>The result of expression will be assigned to the element's class property.</dt>
+		</dl>
+	</section>
+	<section><h3>Class Binding - example</h3>
+		<pre><code rel="Examples" class="angular">
+			@Component({
+				selector: 'app-data-binding-test',
+				template: `
+					&lt;h1 [class]=&quot;h1Style&quot;&gt;Heading styled with {{h1Style}} class.&lt;/h1&gt;
+				`,
+				styles: [`
+					.notaBene{
+						background: #CA1313;
+						color: #ECDBDB;
+					}
+				`]
+			})
+			export class DataBindingTestComponent implements OnInit {
+				h1Style = 'notaBene';
+			}
+		</code></pre>
+	</section>
+	<section><h3>Apply class conditionally</h3>
+		<pre><code rel="Syntax" class="typescript" data-noescape>
+			[class.class_name] = "expression"
+		</code></pre>
+		<dl class="fa">
+			<dt>If expression is evaluated to True, the class_name will be added as value to the element's class property. If it is False - the class_name will be removed.</dt>
+		</dl>
+	</section>
+	<section><h3>Apply class conditionally - example</h3>
+		<pre><code rel="Example" class="html">
+			styles: [`
+				.error{
+					background-color: red;
+				}
+			`],
+			template: `
+				user name: <input type="text" [class.error]="true">
+			`
+		</code></pre>
+	</section>
+	<section><h3>ngClass Directive</h3>
+		<pre><code rel="Syntax" class="typescript" data-noescape>
+			[ngClass]="{'class1': true, 'class2': true}"
+		</code></pre>
+		<dl class="fa">
+			<dt>You can bind to the ngClass to add or remove several classes simultaneously.</dt>
+			<dt>ngClass should be binded to a key:value object.</dt>
+			<dt>Each key of the object is a CSS class name:</dt>
+			<dd>if its value is true - the class will be added</dd>
+			<dd>if it is false - the class will be removed.</dd>
+		</dl>
+	</section>
+	<section><h3>ngClass Directive - example</h3>
+		<pre><code rel="HTML" class="html">
+			@Component({
+				selector: &#39;app-data-binding-test&#39;,
+				template: `
+					&amp;lt;p [ngClass]=&amp;quot;multiClass&amp;quot;&amp;gt;Paragraph multiClass&amp;lt;/p&amp;gt;
+				`,
+				styles: [`
+					.notaBene{
+						background: #CA1313;
+						color: #ECDBDB;
+					}
+					.italic{
+						font-style: italic;
+					}
+				`]
+			})
+			export class DataBindingTestComponent {
+				multiClass = {
+					&#39;notaBene&#39;: true,
+					&#39;italic&#39;: true
+				}
+			}
+		</code></pre>
+	</section>
+</section>
+
+<section data-min="10"><h1>Styles Binding</h1></section>
+<section><h2>Styles Binding</h2>
+	<section>
+		<pre><code rel="Syntax" class="typescript">
+			[style.CSSproperty] = "expression"
+		</code></pre>
+		<dl class="fa">
+			<dt>With style binding we set inline style.</dt>
+			<dt>CSSproperty can be written as in CSS, i.e. with dash-case, or with camel-case.</dt>
+			<dt>expression should return a valid CSS value for that property</dt>
+		</dl>
+		<pre><code rel="example" class="html">
+			&lt;p [style.background]=&quot;&#39;#00E2FF&#39;&quot;&gt;A paragraph with light blue background &lt;/p&gt;
+		</code></pre>
+	</section>
+	<section><h3>unit extension</h3>
+		<dl class="fa">
+			<dt>Properties which values requires CSS units (px, %, em, ...) can be set with unit extension:</dt>
+		</dl>
+		<pre><code rel="Syntax" class="html">
+			[style.property.unit]="expression"
+		</code></pre>
+		<pre><code rel="example" class="html">
+			&lt;p [style.font-size.em]=&quot;vip?3:1&quot;&gt;A VIP paragraph&lt;/p&gt;
+		</code></pre>
+		<dl class="fa">
+			<dt>Instead of using string value:</dt>
+		</dl>
+		<pre><code rel="example" class="html">
+			<p [style.font-size]="'50px'">A VIP paragraph</p>
+		</code></pre>
+	</section>
+	<section><h3>NgStyle</h3>
+		<pre><code rel="Syntax" class="html">
+			 [ngStyle]="{'property1': 'value1', 'property2': 'value2'}
+		</code></pre>
+		<dl class="fa">
+			<dt>With NgStyle we can set many inline styles simultaneously.</dt>
+			<dt>We set ngStyle to a key:value object.</dt>
+			<dd>Each key of the object is a CSS property name.</dd>
+			<dd>its value is the CSS value we want to set to that property</dd>
+		</dl>
+	</section>
+	<section><h3>NgStyle - example</h3>
+		<pre><code rel="data-binding-test.component.ts" class="typescript">
+			import { Component, OnInit } from '@angular/core';
+
+			@Component({
+				selector: 'app-data-binding-test',
+				template: `
+					&lt;p [ngStyle]=&quot;vipStyle&quot;&gt;Style binding with vipStyle&lt;/p&gt;
+				`,
+				styles: [``]
+			})
+			export class DataBindingTestComponent {
+				vipStyle = {
+					'background': 'red',
+					'font-size': '2em',
+					'font-weiht': 'bold',
+					'color': 'white'
+				};
+			}
+
+		</code></pre>
+	</section>
+</section>
+
+
+<section data-min="30"><h1>Events Binding</h1></section>
+<section><h2>Events Binding</h2>
+	<section><h3>Overview</h3>
+		<dl class="fa">
+			<dt>The binding directives discussed so far (property/class/style) flow data in one direction: <span class="note">from a component to an element</span>.</dt>
+			<dt>When user interacts with our page, we need <span class="note">to get data</span>, i.e. the flow to  be <span class="note">from an element to a component.</span> - we can do that by <b>event binging</b>.</dt>
+		</dl>
+	</section>
+	<section><h3>Syntax</h3>
+		<pre><code rel="Syntax" class="html">
+			(event_name) = "template statement"
+		</code></pre>
+		<pre><code rel="Example" class="html">
+			<button (click)="greet()">Click me</button>
+		</code></pre>
+		<dl class="fa" style="font-size: .8em;">
+			<dt>event_name - identifies the target event.</dt>
+			<dd>Could be written with the <code>on-</code> prefix, without the brackets: <code style="font-size: .8em;">&lt;button on-click=&quot;greet()&quot;&gt;Click me&lt;/button&gt;</code></dd>
+			<dt>When the event is raised, the Angular executes the <b>template statement</b>. And sets information about the event in a event object named <code>$event</code>.</dt>
+		</dl>
+	</section>
+	<section><h3>the <code>$event</code> object</h3>
+		<dl class="fa">
+			<dt>The information in the event object is determined by the target event.</dt>
+			<dt>If the target event is a native DOM event, then $event is a DOM event object, with properties such as target and target.value.</dt>
+			<dt>If the event belongs to a directive (recall that components are directives), $event has whatever shape the directive decides to produce.</dt>
+		</dl>
+	</section>
+	<section><h3>DOM Event object - recap</h3>
+		<dl class="fa">
+			<dt>Live demo on DOM Event Object</dt>
+			<dt>Reference: <a href="https://www.w3schools.com/jsref/obj_event.asp">Event Object @w3schools</a></dt>
+			<dt>Reference: <a href="https://developer.mozilla.org/en-US/docs/Web/API/Event">Event @mdn</a></dt>
+		</dl>
+	</section>
+	<section><h3>the <code>$event</code> object - example</h3>
+		<pre><code rel="HTML" class="typescript">
+			import { Component, OnInit } from '@angular/core';
+
+			@Component({
+				selector: 'app-event-binding',
+				template: `
+					&lt;button (click)=&quot;clickHandler($event)&quot;&gt;Button 1&lt;/button&gt;
+					&lt;button (click)=&quot;clickHandler($event)&quot;&gt;Button 2&lt;/button&gt;
+				`,
+				styleUrls: ['./event-binding.component.css']
+			})
+			export class EventBindingComponent {
+				outputDisplay = 'none';
+
+				clickHandler(e) {
+					// do something with event target object:
+					console.log(`${e.target.innerText} was clicked!`);
+				}
+			}
+		</code></pre>
+			<p>On each button click we will see in console: "Button 1 was clicked!" or "Button 2 was clicked!"</p>
+	</section>
+	<section><h3>template reference variable instead of $event</h3>
+		<dl class="fa">
+			<dt>by sending the entire $event object to the component, we can break the <a href="https://en.wikipedia.org/wiki/Separation_of_concerns">separation of concerns</a> between the template and the component.</dt>
+			<dt>That's why, when we just need to pass some data to the component, it's better to use the <a href="https://progressbg-www-courses.github.io/ProgressBG-Angular-Crash-Course-Slides/pages/themes/ComponentsBasics/ComponentsBasics.html#/12/2">template reference variable</a></dt>
+		</dl>
+	</section>
+	<section><h3>Sending data with template reference variable - example</h3>
+		<pre><code rel="event-binding.component.ts" class="typescript">
+			import { Component, OnInit } from '@angular/core';
+
+			@Component({
+				selector: 'app-event-binding',
+				template: `
+					&lt;input type=&quot;text&quot; (keyup)=&quot;onKeyUp(userInput.value)&quot; #userInput&gt;&lt;hr&gt;
+					&lt;div class=&quot;output&quot;&gt;{{content}}&lt;/div&gt;
+				`,
+				styles: [``]
+			})
+			export class EventBindingComponent {
+				content = '';
+
+				onKeyUp(inputValue) {
+					this.content = inputValue;
+				}
+			}
+		</code></pre>
+	</section>
+</section>
+
+
+<section data-min="10"><h1>Two-way binding</h1></section>
+<section><h2>Two-way binding</h2>
+	<section><h3>Notes on Two-Way Data Binding in AngularJS and Angular(>= 2.x)</h3>
+		<dl class="fa">
+			<dt>In AngularJS (Angular v1), changes in the application state have been automagically reflected into the view and vise-versa. I.e. the two-way data binding was the default behaviour.</dt>
+			<dt>In Angular (Angular >= 2.x), this is no more the default behaviour</dt>
+		</dl>
+	</section>
+	<section><h3>Two-way binding - Overview</h3>
+		<dl class="fa" style="font-size: .8em;">
+			<dt>Two-way binding allows to both display a data property and update that property when the user makes changes.</dt>
+			<dt>In Angular (>=2.x) we can achieve that by combination of data and event bindings.</dt>
+			<dt>But Angular offers a special <span class="note">two-way data binding syntax</span> for this purpose - the "<b>banana-in-a-box</b>" syntax:</dt>
+			<pre><code rel="Syntax" class="typescript" style="font-size: 1.4em">
+				<tag-name [(data)]="expression/stetement"></tag-name>
+			</code></pre>
+			<dt>The "<b>banana-in-a-box</b>" syntax is just a syntactic sugar for a property binding and an event binding.</dt>
+		</dl>
+		<pre><code rel="HTML" class="html5">
+			&lt;tag-name [data]=&quot;expression&quot; (dataChange)=&quot;statement&quot;&gt;&lt;/tag-name&gt;
+		</code></pre>
+	</section>
+	<section><h3>Two-way binding with[(ngModel)]</h3>
+		<dl class="fa">
+			<dt>Using the <code>[(x)]</code> syntax is convenient for custom components, where we implement the settable property called x and a corresponding event named xChange.</dt>
+			<dt>But HTML input elements do not have such properties, corresponding to Change events.</dt>
+			<dt>For such cases, we can implement our custom events, or - to use the ngModel directive</dt>
+			<dt class="note">FormsModule is required to use [(ngModel)]</dt>
+		</dl>
+	</section>
+	<section><h3>Two-way binding with[(ngModel)] -example</h3>
+		<dl class="fa">
+			<dt>Make sure you import the FormsModule in app.module.ts:</dt>
+			<pre><code rel="app.module.ts " class="typescript">
+				/* Other imports */
+				import { FormsModule } from '@angular/forms';
+
+				@NgModule({
+					imports: [
+						BrowserModule,
+						FormsModule
+					],
+					/* Other module metadata */
+				})
+				export class AppModule { }
+			</code></pre>
+		</dl>
+	</section>
+	<section><h3>Two-way binding with [(ngModel)] -example</h3>
+		<pre><code rel="event-binding.component.ts" class="typescript">
+			import { Component, OnInit } from '@angular/core';
+
+			@Component({
+				selector: 'app-event-binding',
+				template: `
+					&lt;label&gt;userName: &lt;input [(ngModel)]=&quot;userName&quot;&gt;&lt;/label&gt;
+					&lt;div class=&quot;output&quot;&gt;You&#39;ve entered: {{userName}}&lt;/div&gt;
+				`,
+				styles: [``]
+			})
+			export class EventBindingComponent {
+				userName;
+			}
+		</code></pre>
+	</section>
+	<section><h3>[(ngModel)] equivalents</h3>
+		<dl class="fa" style="font-size: .8em">
+			<dt>The previous example with [(ngModel)] can be written as combination of property binding and an event binding.</dt>
+			<dt>Note that, the <a href="https://developer.mozilla.org/en-US/docs/Web/Events/input">input event</a> is a standard DOM Event.</dt>
+		</dl>
+		<pre><code rel="event-binding.component.ts" class="typescript">
+			import { Component, OnInit } from '@angular/core';
+
+			@Component({
+				selector: 'app-event-binding',
+				template: `
+					&lt;input [value]=&quot;userName&quot; (input)=&quot;userName = $event.target.value&quot;&gt;
+					&lt;div class=&quot;output&quot;&gt;You've entered: {{userName}}&lt;/div&gt;
+				`,
+				styles: [``]
+			})
+			export class EventBindingComponent {
+				userName = '';
+			}
+		</code></pre>
+	</section>
+</section>
+
+<section data-min="40"><h1>Hands on the Demo Project</h1></section>
+<!-- <section><h2>Hands on the Demo Project</h2>
+	<section>
+
+	</section>
+</section> -->
+
+
+<section data-min="1"><h1>References</h1></section>
+<section><h2>References</h2>
+	<section><h3>Readings</h3>
+		<dl class="fa">
+			<dt><a href="https://angular.io/guide/template-syntax#binding-syntax-an-overview">Binding syntax</a> @angular.io guides</dt>
+			<dt><a href="https://angular.io/guide/user-input">User Input</a> @angular.io guides</dt>
+		</dl>
+	</section>
+</section>
+
+<!--
+<section id="hw" data-min="4"><h1>Exercises</h1></section>
+<section><h2>Task1: Task1Title</h2>
+	<section><h3>The Task</h3>
+		<dl class="fa">
+			<dt></dt>
+		</dl>
+	</section>
+</section>
+
+<section><h3>Submission</h3>
+	<dl class="fa">
+		<dt>PLease, prefix your filenames/archive with your name initials, before sending.</dt>
+		<dd>For instance: <b>iep_task1.py</b> or <b>iep_tasks.rar</b></dd>
+		<dt>Send files to <a href="mailto:ProgressBG.WWW.Courses@gmail.com?Subject=_DataBinding_">ProgressBG.WWW.Courses@gmail.com</a></dt>
+	</dl>
+</section> -->
+
+
+<section class="disclaimer" data-background="/ProgressBG-Angular-Crash-Course-Slides/outfit/images/for_slides/the_end_on_sand.jpg">
+	<p>These slides are based on</p>
+	<p>customised version of </p>
+	<p><a href="http://hakim.se/">Hakimel</a>'s <a href="http://lab.hakim.se/reveal-js">reveal.js</a></p>
+	 <p>framework</p>
+</section>
+<!--
+########################################################
+##################### SLIDES END   #####################
+########################################################
+-->
+		</div>
+	</div>
+	<!-- Custom processing -->
+	<script src="/ProgressBG-Angular-Crash-Course-Slides/outfit/js/slides.js"></script>
+	<!-- external scripts -->
+
+	<script src="/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/js/reveal.js"></script>
+
+	<!-- init reveal -->
+	<script>
+		// Full list of configuration options available at:
+		// https://github.com/hakimel/reveal.js#configuration
+		var highlightjsTabSize = '  ';
+		Reveal.initialize({
+			controls: true,
+			progress: true,
+			slideNumber: 'c/t',
+			keyboard: true,
+			history: true,
+
+			// display control
+			// center: true,
+			// width: '100%',
+			// height: '100%',
+			// // Factor of the display size that should remain empty around the content
+			// margin: 0.1,
+
+			// The "normal" size of the presentation, aspect ratio will be preserved
+			// when the presentation is scaled to fit different resolutions. Can be
+			// specified using percentage units.
+			width: 1280,
+			height: 1024,
+
+			// Factor of the display size that should remain empty around the content
+			// margin: 0.1,
+
+			// Bounds for smallest/largest possible scale to apply to content
+			// minScale: 0.2,
+			// maxScale: 1.5,
+
+			// slide transition
+			transition: 'concave', // none/fade/slide/convex/concave/zoom
+			// shift+maous click to zoom in/out element
+			zoomKey: 'ctrl',
+			// theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+			// transition: Reveal.getQueryHash().transition || 'default'
+			// Optional reveal.js plugins
+			dependencies: [
+				{ src: '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+				{ src: '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+				{ src: '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+				{ src: '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.configure({tabReplace: highlightjsTabSize}); hljs.initHighlightingOnLoad(); } },
+				{ src: '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/plugin/zoom-js/zoom.js', async: true },
+				{ src: '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/plugin/notes/notes.js', async: true }
+			]
+		});
+	</script>
+	<!-- linkedin badge -->
+	<script type="text/javascript" src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
+</body>
+</html>

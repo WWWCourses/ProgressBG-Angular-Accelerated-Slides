@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>DependencyInjection</title>
+  <link rel="shortcut icon" href="/ProgressBG-Angular-Crash-Course-Slides/favicon.ico">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <!-- css & themes include -->
+  <link rel="stylesheet" href="/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/css/reveal.css">
+  <link rel="stylesheet" href="/ProgressBG-Angular-Crash-Course-Slides/outfit/css/themes/projector.css" id="theme">
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/css/print/pdf.css' : '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="lib/js/html5shiv.js"></script>
+  <![endif]-->
+  <!-- CUSTOM -->
+  <base target="_blank">
+</head>
+<body>
+  <div class="reveal default center" data-transition-speed="default" data-background-transition="default">
+    <div class="top_links">
+      <a class="home_link" href="/index.html#DependencyInjection" target="_top"><i class="fa fa-home"></i></a>
+      <span class="help_link" href="#"><i class="fa fa-question"></i></span>
+      <div class="help_text">
+        <div><span>N/Space</span><span>Next Slide</span></div>
+        <div><span>P</span><span>Previous Slide</span></div>
+        <div><span>O</span><span>Slides Overview</span></div>
+        <div><span>ctrl+left click</span><span>Zoom Element</span></div>
+      </div>
+    </div>
+    <div class="footer theme_switch">
+      <a href="#" onclick="document.getElementById('theme').setAttribute('href','/ProgressBG-Angular-Crash-Course-Slides/outfit/css/themes/dark.css'); return false;">Dark</a>
+      <a href="#" onclick="document.getElementById('theme').setAttribute('href','/ProgressBG-Angular-Crash-Course-Slides/outfit/css/themes/light.css'); return false;">Light</a>
+      <a href="#" onclick="document.getElementById('theme').setAttribute('href','/ProgressBG-Angular-Crash-Course-Slides/outfit/css/themes/projector.css'); return false;">Projector</a>
+    </div>
+    <div class="slides">
+<!--
+########################################################
+##################### SLIDES START #####################
+########################################################
+-->
+<section data-min-total="80"><h1>Dependency Injection</h1></section>
+<section data-transition="zoom">
+  <div class="copyright">
+    <div class="note">
+      <p>Created for</p>
+    </div>
+    <div class="company">
+      <a href="http://progressbg.net/kurs-po-web-design/">
+      <img style="height:80%" src="/ProgressBG-Angular-Crash-Course-Slides/outfit/images/logos/ProgressBG_logo_529_127.png">
+      </a>
+    </div>
+    <div class="author">
+      <span>Iva E. Popova, 2016-2020,</span>
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a>
+    </div>
+  </div>
+</section>
+
+<section data-min="50"><h1>What and Why?</h1></section>
+<section><h2>What and Why?</h2>
+  <section><h3>The problem</h3>
+    <pre><code rel="JS" class="js">
+      class Engine{
+        constructor(fuel){}
+      }
+
+      class Tires{
+        constructor(size){}
+      }
+
+      class Car{
+        engine;
+        tires;
+
+        constructor(){
+          // error, unless we change the code here
+          this.engine = new Engine();
+          this.tires = new Tires(36);
+        }
+      }
+
+      let ford = new Car();
+    </code></pre>
+    <dl class="fa">
+      <dt>If we change the dependency we MUST change the dependent class.</dt>
+      <dt>I.e. the dependency and the dependent are coupled!</dt>
+      <dt>This leads to code that is hard to maintain and even harder to test.</dt>
+    </dl>
+  </section>
+  <section><h3>Possible Solution?</h3>
+    <pre><code rel="JS" class="js">
+      class Engine{
+        constructor(fuel)
+      }
+
+      class Tires{
+        constructor(size)
+      }
+
+      class Car{
+        engine;
+        tires;
+
+        constructor(engine, tires){
+          this.engine = engine;
+          this.tires = tires;
+        }
+      }
+
+      let engine = new Engine('fule1');
+      let tires = new Tires(36);
+
+      let ford = new Car(engine, tires);
+    </code></pre>
+    <dl class="fa">
+      <dt>The dependency are decoupled, now but what if we have many dependencies, or a dependency itself is dependent of other class?</dt>
+      <dt>We need a mechanism to deal with dependencies.</dt>
+      <dt>And Angular provides a framework </dt>
+    </dl>
+  </section>
+  <section><h3>DI - the design pattern</h3>
+    <dl class="fa">
+      <dt>Dependency injection is a design pattern that makes a class independent of its dependencies</dt>
+      <dt>It allows the creation of dependent objects outside of a class and provides those objects to a class.</dt>
+      <dt>DI allows us to move the creation and binding of the dependent objects outside of the class that depends on them.</dt>
+    </dl>
+  </section>
+  <section><h3>DI - the design pattern</h3>
+    <dl class="fa">
+      <dt>The Dependency Injection pattern involves 3 types of classes.</dt>
+    </dl>
+    <a href="images/DI_Pattern.png"><img src="images/DI_Pattern.png" alt="DI_Pattern" style="margin-top: 1em;"></a>
+  </section>
+  <section><h3>DI - the design pattern</h3>
+    <dl class="fa">
+      <dt><span class="note">Client Class</span></dt>
+      <dd>The client class (dependent class) is a class which depends on the service class</dd>
+      <dt><span class="note">Service Class</span></dt>
+      <dd>The service class (dependency) is a class that provides service to the client class.</dd>
+      <dt><span class="note">Injector Class</span></dt>
+      <dd>The injector class injects the service class object into the client class.</dd>
+    </dl>
+  </section>
+</section>
+
+
+<section data-min="20"><h1>DI in Angular</h1></section>
+<section><h2>DI in Angular</h2>
+  <section><h3>Overview</h3>
+    <dl class="fa">
+      <dt>Angular has its own DI framework, which basically consists of:</dt>
+      <dd><span class="note">Injector</span> - The injector object that exposes APIs to us to create instances of dependencies.</dd>
+      <dd><span class="note">Provider</span> - A provider is like a recipe that tells the injector how to create an instance of a dependency. A provider takes a token and maps that to a factory function that creates an object.</dd>
+      <dd><span class="note">Dependency</span> - A dependency is the type of which an object should be created.</dd>
+    </dl>
+  </section>
+</section>
+
+<section data-min="10"><h1>Injecting dependencies across the component tree</h1></section>
+<section><h2>Injecting dependencies across the component tree</h2>
+  <section>
+    <dl class="fa">
+      <dt>Dependencies declared inside the providers array of a parent component are available to child components out of the box</dt>
+      <dt>Child components do not need to declare the dependencies again in their providers array</dt>
+      <dt>If a child component declares a dependency again in its providers array, which is already declared in its parent component providers array, Angular will create a new instance of dependency for the child component, and it will not use the parent component's dependency</dt>
+      <dt>A dependency instance created at a child component is accessible only to itself and its child components</dt>
+    </dl>
+  </section>
+</section>
+
+<!-- <section data-min="1"><h1>References</h1></section>
+<section><h2>References</h2>
+  <section><h3>Readings</h3>
+    <dl class="fa">
+      <dt></dt>
+    </dl>
+  </section>
+</section>
+
+
+<section id="hw" data-min="4"><h1>Exercises</h1></section>
+<section><h2>Task1: Task1Title</h2>
+  <section><h3>The Task</h3>
+    <dl class="fa">
+      <dt></dt>
+    </dl>
+  </section>
+</section>
+
+<section><h3>Submission</h3>
+  <dl class="fa">
+    <dt>PLease, prefix your filenames/archive with your name initials, before sending.</dt>
+    <dd>For instance: <b>iep_task1.py</b> or <b>iep_tasks.rar</b></dd>
+    <dt>Send files to <a href="mailto:ProgressBG.WWW.Courses@gmail.com?Subject=_DependencyInjection_">ProgressBG.WWW.Courses@gmail.com</a></dt>
+  </dl>
+</section> -->
+
+
+<section class="disclaimer" data-background="/ProgressBG-Angular-Crash-Course-Slides/outfit/images/for_slides/the_end_on_sand.jpg">
+  <p>These slides are based on</p>
+  <p>customised version of </p>
+  <p><a href="http://hakim.se/">Hakimel</a>'s <a href="http://lab.hakim.se/reveal-js">reveal.js</a></p>
+   <p>framework</p>
+</section>
+<!--
+########################################################
+##################### SLIDES END   #####################
+########################################################
+-->
+    </div>
+  </div>
+  <!-- Custom processing -->
+  <script src="/ProgressBG-Angular-Crash-Course-Slides/outfit/js/slides.js"></script>
+  <!-- external scripts -->
+
+  <script src="/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/js/reveal.js"></script>
+
+  <!-- init reveal -->
+  <script>
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    var highlightjsTabSize = '  ';
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      slideNumber: 'c/t',
+      keyboard: true,
+      history: true,
+
+      // display control
+      // center: true,
+      // width: '100%',
+      // height: '100%',
+      // // Factor of the display size that should remain empty around the content
+      // margin: 0.1,
+
+      // The "normal" size of the presentation, aspect ratio will be preserved
+      // when the presentation is scaled to fit different resolutions. Can be
+      // specified using percentage units.
+      width: 1280,
+      height: 1024,
+
+      // Factor of the display size that should remain empty around the content
+      margin: 0.1,
+
+      // Bounds for smallest/largest possible scale to apply to content
+      minScale: 0.2,
+      maxScale: 1.5,
+
+      // slide transition
+      transition: 'concave', // none/fade/slide/convex/concave/zoom
+      // shift+maous click to zoom in/out element
+      zoomKey: 'ctrl',
+      // theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+      // transition: Reveal.getQueryHash().transition || 'default'
+      // Optional reveal.js plugins
+      dependencies: [
+        { src: '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+        { src: '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+        { src: '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+        { src: '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.configure({tabReplace: highlightjsTabSize}); hljs.initHighlightingOnLoad(); } },
+        { src: '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/plugin/zoom-js/zoom.js', async: true },
+        { src: '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/plugin/notes/notes.js', async: true }
+      ]
+    });
+  </script>
+  <!-- linkedin badge -->
+  <script type="text/javascript" src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
+</body>
+</html>

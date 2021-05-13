@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>ComponentsBasics</title>
+	<link rel="shortcut icon" href="/ProgressBG-Angular-Crash-Course-Slides/favicon.ico">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+	<!-- css & themes include -->
+	<link rel="stylesheet" href="/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/css/reveal.css">
+	<link rel="stylesheet" href="/ProgressBG-Angular-Crash-Course-Slides/outfit/css/themes/projector.css" id="theme">
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement( 'link' );
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match( /print-pdf/gi ) ? '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/css/print/pdf.css' : '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/css/print/paper.css';
+		document.getElementsByTagName( 'head' )[0].appendChild( link );
+	</script>
+	<!--[if lt IE 9]>
+	<script src="lib/js/html5shiv.js"></script>
+	<![endif]-->
+	<!-- CUSTOM -->
+	<base target="_blank">
+</head>
+<body>
+	<div class="reveal default center" data-transition-speed="default" data-background-transition="default">
+		<div class="top_links">
+			<a class="home_link" href="/index.html#ComponentsBasics" target="_top"><i class="fa fa-home"></i></a>
+			<span class="help_link" href="#"><i class="fa fa-question"></i></span>
+			<div class="help_text">
+				<div><span>N/Space</span><span>Next Slide</span></div>
+				<div><span>P</span><span>Previous Slide</span></div>
+				<div><span>O</span><span>Slides Overview</span></div>
+				<div><span>ctrl+left click</span><span>Zoom Element</span></div>
+			</div>
+		</div>
+		<div class="footer theme_switch">
+			<a href="#" onclick="document.getElementById('theme').setAttribute('href','/ProgressBG-Angular-Crash-Course-Slides/outfit/css/themes/dark.css'); return false;">Dark</a>
+			<a href="#" onclick="document.getElementById('theme').setAttribute('href','/ProgressBG-Angular-Crash-Course-Slides/outfit/css/themes/light.css'); return false;">Light</a>
+			<a href="#" onclick="document.getElementById('theme').setAttribute('href','/ProgressBG-Angular-Crash-Course-Slides/outfit/css/themes/projector.css'); return false;">Projector</a>
+		</div>
+		<div class="slides">
+<!--
+########################################################
+##################### SLIDES START #####################
+########################################################
+-->
+<section data-min-total="__X__"><h1>Components Basics</h1></section>
+<section data-transition="zoom">
+	<div class="copyright">
+		<div class="note">
+			<p>Created for</p>
+		</div>
+		<div class="company">
+			<a href="http://progressbg.net/kurs-po-web-design/">
+			<img style="height:80%" src="/ProgressBG-Angular-Crash-Course-Slides/outfit/images/logos/ProgressBG_logo_529_127.png">
+			</a>
+		</div>
+		<div class="author">
+			<span>Iva E. Popova, 2016-2020,</span>
+			<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a>
+		</div>
+	</div>
+</section>
+
+
+<section data-min="30"><h1>Frame our BookStore app in Angular terms</h1></section>
+<section><h2>Frame our BookStore app in Angular terms</h2>
+	<section>
+		<a href="images/BookStoreComponentsOverview.png"><img src="images/BookStoreComponentsOverview.png"></a>
+	</section>
+</section>
+
+
+<section data-min="10"><h1>The app component tree</h1></section>
+<section><h2>The app component tree</h2>
+	<section>
+		<a href="images/ComponentTree-BookStoreSimple.png"><img src="images/ComponentTree-BookStoreSimple.png"></a>
+	</section>
+</section>
+
+<section data-min="__Y__"><h1>What's in a component?</h1></section>
+<section><h2>What's in a component?</h2>
+	<section>
+		<pre><code rel="JS" class="js">
+			@Component({
+				selector: 'app-root',
+				templateUrl: './app.component.html',
+				styleUrls: ['./app.component.css']
+			})
+			export class AppComponent {
+				title = 'app';
+			}
+		</code></pre>
+		<a href="images/AngularComponentBox_MY.png"><img src="images/AngularComponentBox_MY.png"></a>
+	</section>
+</section>
+
+<section><h2>Component Declaration</h2>
+	<dl class="fa">
+		<dt>When a component A has to use component B in its template, then component B must be made available to the component A. </dt>
+		<dt class="note">Component B has to be declared in the module of the component A.</dt>
+		<dt>If the component B is declared in another module, the module must be imported into the module of the first component. Otherwise, the component won’t be compiled with the template.</dt>
+	</dl>
+</section>
+
+<section data-min="10"><h1>Components Metadata and  Decorators</h1></section>
+<section><h2>Components Decorators</h2>
+	<section>
+		<dl class="fa">
+			<dt>A component is a JavaScript class with a decorator.</dt>
+			<dt>The decorator defines how the component should look on the page, how it has to be used, and the dependencies of the component.</dt>
+			<dt>In decorator, we can specify various component metadata</dt>
+		</dl>
+	</section>
+	<section><h3>Metadata Properties:</h3>
+		<p class="note">The minimum metadata for a component are the ones specifying the selector, template and style:</p>
+		<dl class="fa">
+			<dt><strong>selector</strong> - css selector that identifies this component in a template</dt>
+			<dt><strong>styleUrls</strong> - list of urls to stylesheets to be applied to this component's view</dt>
+			<dt><strong>styles</strong> - inline-defined styles to be applied to this component's view</dt>
+			<dt><strong>template</strong> - inline-defined template for the view</dt>
+			<dt><strong>templateUrl</strong> - url to an external file containing a template for the view</dt>
+		</dl>
+	</section>
+	<section style="font-size: .9em;"><h3>Metadata Properties:</h3>
+		<dl class="fa">
+			<dt><strong>animations</strong> - list of animations of this component</dt>
+			<dt><strong>changeDetection</strong> - change detection strategy used by this component</dt>
+			<dt><strong>encapsulation</strong> - style encapsulation strategy used by this component</dt>
+			<dt><strong>entryComponents</strong> - list of components that are dynamically inserted into the view of this component</dt>
+			<dt><strong>exportAs</strong> - name under which the component instance is exported in a template</dt>
+		</dl>
+	</section>
+	<section style="font-size: .9em;"><h3>Metadata Properties:</h3>
+		<dl class="fa">
+			<dt><strong>inputs</strong> - list of class property names to data-bind as component inputs</dt>
+			<dt><strong>outputs</strong> - list of class property names that expose output events that others can
+			subscribe to</dt>
+			<dt><strong>providers</strong> - list of providers available to this component and its children</dt>
+			<dt><strong>viewProviders</strong> - list of providers available to this component and its view children</dt></dt>
+			<dt><strong>queries</strong> -  configure queries that can be injected into the component</dt>
+		</dl>
+	</section>
+
+</section>
+
+<section data-min="10"><h1>The Selector</h1></section>
+<section><h2>The Selector</h2>
+	<section><h3></h3>
+		<dl class="fa">
+			<dt><span class="note">element-name</span> - select by element name.</dt>
+			<dt><span class="note">.class</span> - select by class name.</dt>
+			<dt><span class="note">[attribute]</span> - select by attribute name.</dt>
+			<dt><span class="note">[attribute=value]</span> - select by attribute name and value.</dt>
+			<dt><span class="note">:not(sub_selector)</span> - select only if the element does not match the sub_selector.</dt>
+			<dt><span class="note">selector1, selector2</span> - select if either selector1 or selector2 matches.</dt>
+		</dl>
+	</section>
+	<section><h3>Example</h3>
+		<pre><code rel="app.component.html" class="js">
+			<h1>Welcome to {{title}}</h1>
+			<div class='test'></div>
+		</code></pre>
+		<pre><code rel="test.component.ts" class="js">
+			import { Component, OnInit } from '@angular/core';
+
+			@Component({
+				selector: '.test',
+				templateUrl: './test.component.html',
+				styleUrls: ['./test.component.css']
+			})
+			export class TestComponent implements OnInit {
+
+				constructor() { }
+
+				ngOnInit(): void {
+				}
+
+			}
+
+		</code></pre>
+	</section>
+</section>
+
+
+<section data-min="10"><h1>The Template</h1></section>
+<section><h2>The Template</h2>
+	<section>
+		<dl class="fa">
+			<dt>An Angular Template represents the view.</dt>
+			<dt>It can contain an HTML code (no scripts elements, though) augmented with Angular's entities.</dt>
+		</dl>
+	</section>
+	<section><h3>Interpolation <code>{{...}}</code></h3>
+		<dl class="fa">
+			<dt>Interpolation refers to embedding expressions into marked up text.</dt>
+			<dt>In Angular we can interpolates variables and expressions into HTML templatplate using the double curly braces as delimiter</dt>
+			<dt>Reference: <a href="https://angular.io/guide/template-syntax#interpolation-and-template-expressions">Interpolation and Template Expressions</a></dt>
+		</dl>
+	</section>
+	<section><h3>Examples</h3>
+		<pre><code rel="app.component.ts" class="js">
+			import { Component } from '@angular/core';
+
+			@Component({
+				selector: 'app-root',
+				template: `
+					Hello, {{userName}}. You are {{currentYear - userBirthYear}} years old!`
+
+			})
+			export class AppComponent {
+				userName='Maria';
+				userBirthYear = 1990;
+				currentYear = 2020;
+			}
+
+		</code></pre>
+	</section>
+	<section><h3>Template Reference Variables</h3>
+		<dl class="fa">
+			<dt>A template reference variable is often a reference to a DOM element within a template</dt>
+			<dt>It can also be a reference to an <em>Angular component</em> or <em>directive</em> or a <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components">web component</a>.</dt>
+			<dt>A template reference variable is declared by prefixing the variable with <code>#</code>.</dt>
+			<dt>It can be accessed anywhere in the entire template.</dt>
+		</dl>
+	</section>
+	<section><h3>Template Reference Variables - examples</h3>
+		<pre><code rel="components.component.html" class="html">
+			&lt;section&gt;
+				&lt;h2&gt;Template reference variables&lt;/h2&gt;
+				&lt;input #userName placeholder=&quot;enter a user name&quot;&gt;
+				&lt;button (click)=&quot;getUserName(userName.value)&quot;&gt;Get UserName&lt;/button&gt;
+			&lt;/section&gt;
+		</code></pre>
+		<pre><code rel="components.component.ts" class="typescript">
+			import { Component, OnInit } from '@angular/core';
+
+			@Component({
+				selector: 'app-components',
+				templateUrl: './components.component.html',
+				styleUrls: ['./components.component.css']
+			})
+			export class ComponentsComponent implements OnInit {
+
+				constructor() { }
+
+				ngOnInit() {
+				}
+
+				getUserName(data) {
+					console.log(data);
+				}
+			}
+		</code></pre>
+	</section>
+	<section><h3 class="advanced">Get reference to a DOM element with <code>@ViewChild</code></h3>
+		<dl class="fa">
+			<dt>With @ViewChild decorator, we can get any component, directive, or HTML element present on the template of a given component onto the component itself.</dt>
+			<dt>Reference: <a href="https://blog.angular-university.io/angular-viewchild/">Angular @ViewChild: In-Depth Explanation (All Features Covered)</a></dt>
+		</dl>
+	</section>
+	<section><h3>Get reference to a DOM element with <code>@ViewChild</code> - example</h3>
+		<pre><code rel="demo.component.ts" class="ts">
+			import { Component, ViewChild, ElementRef } from '@angular/core';
+
+			@Component({
+				selector: 'app-test-comp',
+				template:`
+					<div>
+						user name: <input #uName type="text">
+						<button (click)="clearInput()">Clear input</button>
+					</div>
+				`,
+				styleUrls: ['./test-comp.component.css']
+			})
+			export class TestCompComponent {
+				@ViewChild('uName')
+				uNameInput:ElementRef
+
+				clearInput(){
+					this.uNameInput.nativeElement.value = '';
+				}
+			}
+
+		</code></pre>
+	</section>
+</section>
+
+
+<section data-min="15"><h1>Create the Components of BookStore</h1></section>
+<section><h2>Create the Components of BookStore</h2>
+	<section><h3>create main components files</h3>
+		<p>For now, we do not need the *.component.spec.ts file, which is used to for test cases. That's why, we'll instruct Angular CLI to not create the spec file per component:</p>
+		<pre><code rel="Terminal" class="bash" data-noescape>
+			# the header:
+			ng g c header  --skip-tests
+
+			# the footer:
+			ng g c footer  --skip-tests
+
+			# the main:
+			ng g c main  --skip-tests
+		</code></pre>
+	</section>
+	<section><h3>Skipping test by default with Angular Schematics</h3>
+		<dl class="fa">
+			<dt>We can set in <code>angular.json</code> file,the Schematics settings to skip tests generation</dt>
+		</dl>
+		<pre><code rel="angular.json" class="js">
+			"schematics": {
+				"@schematics/angular:component": {
+					"skipTests": true
+				},
+				"@schematics/angular:class": {
+					"skipTests": true
+				},
+				"@schematics/angular:directive": {
+					"skipTests": true
+				},
+				"@schematics/angular:guard": {
+					"skipTests": true
+				},
+				"@schematics/angular:interceptor": {
+					"skipTests": true
+				},
+				"@schematics/angular:module": {
+					"skipTests": true
+				},
+				"@schematics/angular:pipe": {
+					"skipTests": true
+				},
+				"@schematics/angular:service": {
+					"skipTests": true
+				}
+			},
+		</code></pre>
+	</section>
+	<section>
+		<p>Our project tree should look like:</p>
+		<pre><code rel="Output" class="bash" data-noescape>
+			app/
+			├── app.component.css
+			├── app.component.html
+			├── app.component.spec.ts
+			├── app.component.ts
+			├── app.module.ts
+			├── footer
+			│   ├── footer.component.css
+			│   ├── footer.component.html
+			│   └── footer.component.ts
+			├── header
+			│   ├── header.component.css
+			│   ├── header.component.html
+			│   └── header.component.ts
+			└── main
+					├── main.component.css
+					├── main.component.html
+					└── main.component.ts
+		</code></pre>
+	</section>
+	<section><h3>Insert Components in AppComponent</h3>
+		<dl class="fa">
+			<dt>Live demo</dt>
+		</dl>
+	</section>
+</section>
+
+<!--
+<section id="hw" data-min="4"><h1>Exercises</h1></section>
+<section><h2>Task1: Task1Title</h2>
+	<section><h3>The Task</h3>
+		<dl class="fa">
+			<dt></dt>
+		</dl>
+	</section>
+</section>
+
+<section><h3>Submission</h3>
+	<dl class="fa">
+		<dt>PLease, prefix your filenames/archive with your name initials, before sending.</dt>
+		<dd>For instance: <b>iep_task1.py</b> or <b>iep_tasks.rar</b></dd>
+		<dt>Send files to <a href="mailto:ProgressBG.WWW.Courses@gmail.com?Subject=_ComponentsBasics_">ProgressBG.WWW.Courses@gmail.com</a></dt>
+	</dl>
+</section>
+
+ -->
+<section class="disclaimer" data-background="/ProgressBG-Angular-Crash-Course-Slides/outfit/images/for_slides/the_end_on_sand.jpg">
+	<p>These slides are based on</p>
+	<p>customised version of </p>
+	<p><a href="http://hakim.se/">Hakimel</a>'s <a href="http://lab.hakim.se/reveal-js">reveal.js</a></p>
+	 <p>framework</p>
+</section>
+<!--
+########################################################
+##################### SLIDES END   #####################
+########################################################
+-->
+		</div>
+	</div>
+	<!-- Custom processing -->
+	<script src="/ProgressBG-Angular-Crash-Course-Slides/outfit/js/slides.js"></script>
+	<!-- external scripts -->
+
+	<script src="/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/js/reveal.js"></script>
+
+	<!-- init reveal -->
+	<script>
+		// Full list of configuration options available at:
+		// https://github.com/hakimel/reveal.js#configuration
+		var highlightjsTabSize = '  ';
+		Reveal.initialize({
+			controls: true,
+			progress: true,
+			slideNumber: 'c/t',
+			keyboard: true,
+			history: true,
+
+			// display control
+			// center: true,
+			// width: '100%',
+			// height: '100%',
+			// // Factor of the display size that should remain empty around the content
+			// margin: 0.1,
+
+			// The "normal" size of the presentation, aspect ratio will be preserved
+			// when the presentation is scaled to fit different resolutions. Can be
+			// specified using percentage units.
+			width: 1280,
+			height: 1024,
+
+			// Factor of the display size that should remain empty around the content
+			margin: 0.1,
+
+			// Bounds for smallest/largest possible scale to apply to content
+			minScale: 0.2,
+			maxScale: 1.5,
+
+			// slide transition
+			transition: 'concave', // none/fade/slide/convex/concave/zoom
+			// shift+maous click to zoom in/out element
+			zoomKey: 'ctrl',
+			// theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+			// transition: Reveal.getQueryHash().transition || 'default'
+			// Optional reveal.js plugins
+			dependencies: [
+				{ src: '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+				{ src: '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+				{ src: '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+				{ src: '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.configure({tabReplace: highlightjsTabSize}); hljs.initHighlightingOnLoad(); } },
+				{ src: '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/plugin/zoom-js/zoom.js', async: true },
+				{ src: '/ProgressBG-Angular-Crash-Course-Slides/lib/reveal.js/plugin/notes/notes.js', async: true }
+			]
+		});
+	</script>
+	<!-- linkedin badge -->
+	<script type="text/javascript" src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
+</body>
+</html>
