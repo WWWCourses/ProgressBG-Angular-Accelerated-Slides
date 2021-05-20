@@ -28,7 +28,7 @@
 	<div class="reveal default center" data-transition-speed="default" data-background-transition="default">
 		<div class="top_links">
 			<a class="home_link" href="/index.html#ComponentsBasics" target="_top"><i class="fa fa-home"></i></a>
-			<span class="help_link" href="#"><i class="fa fa-question"></i></span>
+			<span class="help_link"><i class="fa fa-question"></i></span>
 			<div class="help_text">
 				<div><span>N/Space</span><span>Next Slide</span></div>
 				<div><span>P</span><span>Previous Slide</span></div>
@@ -55,7 +55,7 @@
 		</div>
 		<div class="company">
 			<a href="http://progressbg.net/kurs-po-web-design/">
-			<img style="height:80%" src="/ProgressBG-Angular-Crash-Course-Slides/outfit/images/logos/ProgressBG_logo_529_127.png">
+			<img style="height:80%" src="/ProgressBG-Angular-Crash-Course-Slides/outfit/images/logos/ProgressBG_logo_529_127.png" alt="logo">
 			</a>
 		</div>
 		<div class="author">
@@ -66,24 +66,33 @@
 </section>
 
 
-<section data-min="30"><h1>Frame our BookStore app in Angular terms</h1></section>
-<section><h2>Frame our BookStore app in Angular terms</h2>
+<!-- <section data-min="30"><h1>Frame our TodoApp in Angular terms</h1></section>
+<section><h2>Frame our TodoApp in Angular terms</h2>
 	<section>
-		<a href="images/BookStoreComponentsOverview.png"><img src="images/BookStoreComponentsOverview.png"></a>
+		<a href="images/TodoAppComponentsStructure.png"><img src="images/TodoAppComponentsStructure.png" alt="TodoAppComponentsStructure.png"></a>
 	</section>
 </section>
 
 
-<section data-min="10"><h1>The app component tree</h1></section>
-<section><h2>The app component tree</h2>
+<section data-min="10"><h1>The component tree</h1></section>
+<section><h2>The component tree</h2>
 	<section>
-		<a href="images/ComponentTree-BookStoreSimple.png"><img src="images/ComponentTree-BookStoreSimple.png"></a>
+		<a href="images/TodoAppComponents-TreeStrucutre.png"><img src="images/TodoAppComponents-TreeStrucutre.png" alt="TodoAppComponents-TreeStrucutre.png"></a>
 	</section>
-</section>
+</section> -->
 
 <section data-min="__Y__"><h1>What's in a component?</h1></section>
 <section><h2>What's in a component?</h2>
 	<section>
+		<p>Components are the main building block for Angular applications. Each component consists of:</p>
+		<a href="images/AngularComponentBox_MY.png"><img src="images/AngularComponentBox_MY.png"></a><br>
+		<dl class="fa" style="font-size: .7em;">
+			<dt>An <span class="note">HTML template</span> that declares what renders on the page</dt>
+			<dt>Optionally, <span class="note">CSS styles</span> applied to the template</dt>
+			<dt>A <span class="note">Typescript class</span> that defines behavior</dt>
+			<dt>A <span class="note">CSS selector</span> that defines how the component is used in a template</dt>
+		</dl>
+		<br>
 		<pre><code rel="JS" class="js">
 			@Component({
 				selector: 'app-root',
@@ -94,7 +103,6 @@
 				title = 'app';
 			}
 		</code></pre>
-		<a href="images/AngularComponentBox_MY.png"><img src="images/AngularComponentBox_MY.png"></a>
 	</section>
 </section>
 
@@ -110,7 +118,7 @@
 <section><h2>Components Decorators</h2>
 	<section>
 		<dl class="fa">
-			<dt>A component is a JavaScript class with a decorator.</dt>
+			<dt>A component is a TypeScript class with a decorator.</dt>
 			<dt>The decorator defines how the component should look on the page, how it has to be used, and the dependencies of the component.</dt>
 			<dt>In decorator, we can specify various component metadata</dt>
 		</dl>
@@ -190,6 +198,7 @@
 <section><h2>The Template</h2>
 	<section>
 		<dl class="fa">
+			<dt>An Angular component requires a template defined using <code>template</code> or <code>templateUrl</code>. <br> <span class="note">You cannot have both statements in a component</span>.</dt>
 			<dt>An Angular Template represents the view.</dt>
 			<dt>It can contain an HTML code (no scripts elements, though) augmented with Angular's entities.</dt>
 		</dl>
@@ -197,8 +206,8 @@
 	<section><h3>Interpolation <code>{{...}}</code></h3>
 		<dl class="fa">
 			<dt>Interpolation refers to embedding expressions into marked up text.</dt>
-			<dt>In Angular we can interpolates variables and expressions into HTML templatplate using the double curly braces as delimiter</dt>
-			<dt>Reference: <a href="https://angular.io/guide/template-syntax#interpolation-and-template-expressions">Interpolation and Template Expressions</a></dt>
+			<dt>In Angular we can interpolates <span class="note">variables and expressions</span> into HTML templatplate using the double curly braces as delimiter</dt>
+			<dt>Reference: <a href="https://angular.io/guide/interpolation">Text interpolation</a></dt>
 		</dl>
 	</section>
 	<section><h3>Examples</h3>
@@ -219,12 +228,14 @@
 
 		</code></pre>
 	</section>
-	<section><h3>Template Reference Variables</h3>
+	<section><h3>Template Variables</h3>
 		<dl class="fa">
-			<dt>A template reference variable is often a reference to a DOM element within a template</dt>
+			<dt>Template variables help you use data from one part of a template in another part of the template.</dt>
+			<dt>A template  variable is often a reference to a DOM element within a template</dt>
 			<dt>It can also be a reference to an <em>Angular component</em> or <em>directive</em> or a <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components">web component</a>.</dt>
 			<dt>A template reference variable is declared by prefixing the variable with <code>#</code>.</dt>
 			<dt>It can be accessed anywhere in the entire template.</dt>
+			<dt>Reference: <a href="https://angular.io/guide/template-reference-variables">Template Variables</a></dt>
 		</dl>
 	</section>
 	<section><h3>Template Reference Variables - examples</h3>
@@ -428,8 +439,8 @@
 			// The "normal" size of the presentation, aspect ratio will be preserved
 			// when the presentation is scaled to fit different resolutions. Can be
 			// specified using percentage units.
-			width: 1280,
-			height: 1024,
+			width: 1920,
+			height: 1080,
 
 			// Factor of the display size that should remain empty around the content
 			margin: 0.1,
