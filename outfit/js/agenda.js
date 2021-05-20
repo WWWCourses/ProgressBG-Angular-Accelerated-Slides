@@ -153,7 +153,7 @@ function calcTotalDays(){
     };
 
     // calculate total days
-    out_node.innerHTML = total_days;
+    // out_node.innerHTML = total_days;
 }
 
 function showHideAll( clicked_node, effected_nodes ){
