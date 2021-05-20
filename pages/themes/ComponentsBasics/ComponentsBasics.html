@@ -123,7 +123,7 @@
 			<dt>In decorator, we can specify various component metadata</dt>
 		</dl>
 	</section>
-	<section><h3>Metadata Properties:</h3>
+	<section><h3>Basic Metadata Properties:</h3>
 		<p class="note">The minimum metadata for a component are the ones specifying the selector, template and style:</p>
 		<dl class="fa">
 			<dt><strong>selector</strong> - css selector that identifies this component in a template</dt>
@@ -132,8 +132,9 @@
 			<dt><strong>template</strong> - inline-defined template for the view</dt>
 			<dt><strong>templateUrl</strong> - url to an external file containing a template for the view</dt>
 		</dl>
+		<p>Note, that you can not use <span class="note">both styles and stylesUrls</span> properties. The same is for <span class="note">template and templateUrl </span>	properties.</p>
 	</section>
-	<section style="font-size: .9em;"><h3>Metadata Properties:</h3>
+	<section style="font-size: .9em;"><h3>Other Metadata Properties:</h3>
 		<dl class="fa">
 			<dt><strong>animations</strong> - list of animations of this component</dt>
 			<dt><strong>changeDetection</strong> - change detection strategy used by this component</dt>
@@ -142,7 +143,7 @@
 			<dt><strong>exportAs</strong> - name under which the component instance is exported in a template</dt>
 		</dl>
 	</section>
-	<section style="font-size: .9em;"><h3>Metadata Properties:</h3>
+	<section style="font-size: .9em;"><h3>Other Metadata Properties:</h3>
 		<dl class="fa">
 			<dt><strong>inputs</strong> - list of class property names to data-bind as component inputs</dt>
 			<dt><strong>outputs</strong> - list of class property names that expose output events that others can
@@ -301,20 +302,24 @@
 </section>
 
 
-<section data-min="15"><h1>Create the Components of BookStore</h1></section>
-<section><h2>Create the Components of BookStore</h2>
+<section data-min="15"><h1>Create the Components of TodoApp</h1></section>
+<section><h2>Create the Components of TodoApp</h2>
 	<section><h3>create main components files</h3>
 		<p>For now, we do not need the *.component.spec.ts file, which is used to for test cases. That's why, we'll instruct Angular CLI to not create the spec file per component:</p>
 		<pre><code rel="Terminal" class="bash" data-noescape>
 			# the header:
 			ng g c header  --skip-tests
 
-			# the footer:
-			ng g c footer  --skip-tests
+			# the add-todo:
+			ng g c add-todo  --skip-tests
 
-			# the main:
-			ng g c main  --skip-tests
+			# the todo-list:
+			ng g c todo-list  --skip-tests
+
+			# the todo-item component:
+			ng g c todo-list/todo-item  --skip-tests
 		</code></pre>
+		<p>Note, that if you prefix the component name with &lt;path&gt;/&lt;name&gt; the files for this component will be created into the given path.</p>
 	</section>
 	<section><h3>Skipping test by default with Angular Schematics</h3>
 		<dl class="fa">
@@ -352,24 +357,20 @@
 	<section>
 		<p>Our project tree should look like:</p>
 		<pre><code rel="Output" class="bash" data-noescape>
-			app/
-			├── app.component.css
-			├── app.component.html
-			├── app.component.spec.ts
-			├── app.component.ts
-			├── app.module.ts
-			├── footer
-			│   ├── footer.component.css
-			│   ├── footer.component.html
-			│   └── footer.component.ts
-			├── header
-			│   ├── header.component.css
-			│   ├── header.component.html
-			│   └── header.component.ts
-			└── main
-					├── main.component.css
-					├── main.component.html
-					└── main.component.ts
+			src/
+			├── app
+			│   ├── add-todo
+			│   │   └── add-todo.component.ts
+			│   ├── app.component.ts
+			│   ├── app.module.ts
+			│   ├── header
+			│   │   └── header.component.ts
+			│   └── todo-list
+			│       ├── todo-item
+			│       │   └── todo-item.component.ts
+			│       └── todo-list.component.ts
+
+			...
 		</code></pre>
 	</section>
 	<section><h3>Insert Components in AppComponent</h3>
