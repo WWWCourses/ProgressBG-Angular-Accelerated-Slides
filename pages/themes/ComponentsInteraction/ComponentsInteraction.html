@@ -137,19 +137,19 @@
 <section><h2>Data Flow examples</h2>
 	<section><h3>the Parent Component</h3>
 		<pre><code rel="TS" class="typescript">
-			import { Component, OnInit } from '@angular/core';
+			import { Component, OnInit } from &#39;@angular/core&#39;;
 
 			@Component({
-				selector: 'app-parent',
+				selector: &#39;app-parent&#39;,
 				template: `
-					<h2>parent component</h2>
-					<app-child [parentData]="name"><app-child>
+					&lt;h2&gt;parent component&lt;/h2&gt;
+					&lt;app-child [parentData]=&quot;name&quot;&gt;&lt;app-child&gt;
 				`,
-				styleUrls:['./parent.component.css']
+				styleUrls:[&#39;./parent.component.css&#39;]
 			})
 			export class ParentComponent implements OnInit {
 				// the data which will be sent to Child  as parentData property binding
-				public name="ParentComponent"
+				public name=&quot;ParentComponent&quot;
 
 				constructor() { }
 
@@ -231,7 +231,7 @@
 	</section>
 </section>
 
-<section data-min="30" id="component_lifecycle"><h1>Component Lifecycle</h1></section>
+<section data-min="30" id="componentLifecycle"><h1>Component Lifecycle</h1></section>
 <section><h2 class="advanced">Component Lifecycle</h2>
 	<section><h3>Overview</h3>
 		<dl class="fa">

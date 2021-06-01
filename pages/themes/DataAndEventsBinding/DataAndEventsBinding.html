@@ -203,7 +203,7 @@
 		</dl>
 	</section>
 	<section><h3>HTML Attributes vs DOM Properties - example</h3>
-		<pre><code rel="JS" class="js">
+		<pre><code rel="JS" class="ts">
 			import { Component } from '@angular/core';
 
 			@Component({
@@ -425,7 +425,7 @@
 		</dl>
 	</section>
 	<section><h3>the <code>$event</code> object - example</h3>
-		<pre><code rel="HTML" class="typescript">
+		<pre><code rel="event-binding.component.ts" class="typescript">
 			import { Component, OnInit } from '@angular/core';
 
 			@Component({
@@ -447,13 +447,13 @@
 		</code></pre>
 			<p>On each button click we will see in console: "Button 1 was clicked!" or "Button 2 was clicked!"</p>
 	</section>
-	<section><h3>template reference variable instead of $event</h3>
+	<section><h3>Get data with template reference variable instead of $event</h3>
 		<dl class="fa">
 			<dt>by sending the entire $event object to the component, we can break the <a href="https://en.wikipedia.org/wiki/Separation_of_concerns">separation of concerns</a> between the template and the component.</dt>
 			<dt>That's why, when we just need to pass some data to the component, it's better to use the <a href="https://progressbg-www-courses.github.io/ProgressBG-Angular-Crash-Course-Slides/pages/themes/ComponentsBasics/ComponentsBasics.html#/12/2">template reference variable</a></dt>
 		</dl>
 	</section>
-	<section><h3>Sending data with template reference variable - example</h3>
+	<section><h3>Get data with template reference variable - example 1</h3>
 		<pre><code rel="event-binding.component.ts" class="typescript">
 			import { Component, OnInit } from '@angular/core';
 
@@ -472,6 +472,34 @@
 					this.content = inputValue;
 				}
 			}
+		</code></pre>
+	</section>
+	<section><h3>Get data from $event object - example 2</h3>
+		<pre><code rel="test.component.ts" class="ts">
+			import { Component, OnInit } from '@angular/core';
+
+			@Component({
+				selector: 'app-test',
+				template: `
+					<label>user age: <input type="number" (keypress)="keypressHandler($event)" ></label>
+				`,
+				styles: []
+			})
+			export class TestComponent {
+				userAge:number|undefined
+
+				constructor() { }
+
+				keypressHandler(e:KeyboardEvent){
+					console.dir(e)
+					if(e.code === "Enter"){
+						// if event object is typed as KeyboardEvent, we must cast target object to HTMLInputElement. If we type event object as any type, we can use directly e.target.value
+						this.userAge = Number((e.target as HTMLInputElement).value);
+						console.log(this.userAge);
+					}
+				}
+			}
+
 		</code></pre>
 	</section>
 </section>
@@ -553,8 +581,8 @@
 			@Component({
 				selector: 'app-event-binding',
 				template: `
-					&lt;input [value]=&quot;userName&quot; (input)=&quot;userName = $event.target.value&quot;&gt;
-					&lt;div class=&quot;output&quot;&gt;You've entered: {{userName}}&lt;/div&gt;
+					&lt;input [value]=&quot;userName&quot; (input)=&quot;userName = $any($event.target).value&quot;&gt;
+					&lt;div class=&quot;output&quot;&gt;You&#39;ve entered: {{userName}}&lt;/div&gt;
 				`,
 				styles: [``]
 			})
