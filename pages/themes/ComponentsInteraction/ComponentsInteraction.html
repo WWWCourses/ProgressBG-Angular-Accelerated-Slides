@@ -231,49 +231,6 @@
 	</section>
 </section>
 
-<section data-min="30" id="componentLifecycle"><h1>Component Lifecycle</h1></section>
-<section><h2 class="advanced">Component Lifecycle</h2>
-	<section><h3>Overview</h3>
-		<dl class="fa">
-			<dt>Angular bootstrap process consists of the two major phases:</dt>
-			<dd>Constructing components tree</dd>
-			<dd>Change detection</dd>
-		</dl>
-	</section>
-	<section><h3>Constructing Components Phase</h3>
-		<dl class="fa">
-			<dt>At this phase <span class="note">only the component constructors</span> are called.</dt>
-			<dt>the constructor() method is the only method that is called in the context of the injector. Thus, this is the place to inject any dependency you might need.</dt>
-			<dt>The @Input communication mechanism is processed on following <span class="note">change detection phase</span> so <span class="note">input bindings are not available in constructor.</span></dt>
-		</dl>
-	</section>
-	<section><h3>Change Detection Phase</h3>
-		<dl class="fa">
-			<dt>There are 8 different stages in the component lifecycle at Change Detection phase.</dt>
-			<dt>Every stage is assigned with a life cycle event and Angular provides us with a <span class="note">lifecycle hook</span> interfaces so we can respond to these events.</dt>
-		</dl>
-	</section>
-	<section><h3>lifecycle hooks</h3>
-		<a href="images/lifecycleHooks.png"><img src="images/lifecycleHooks.png" alt="lifecycleHooks"></a>
-	</section>
-	<section><h3>lifecycle hooks</h3>
-		<table style="font-size: .6em">
-			<tr><th>Interface</th><th>Method</th><th>Description</th></tr>
-			<tr><td>OnChanges</td><td>ngOnChanges</td><td>Called when an input or output binding value changes</td></tr>
-			<tr><td>OnInit</td><td>ngOnInit</td><td>After the first ngOnChanges</td></tr>
-			<tr><td>DoCheck</td><td>ngDoCheck</td><td>Developer’s custom change detection</td></tr>
-			<tr><td>AfterContentInit</td><td>ngAfterContentInit</td><td>After component content initialized</td></tr>
-			<tr><td>AfterContentChecked</td><td>ngAfterContentChecked</td><td>After every check of component content</td></tr>
-			<tr><td>AfterViewInit</td><td>ngAfterViewInit</td><td>After component's view(s) are initialized</td></tr>
-			<tr><td>AfterViewChecked</td><td>ngAfterViewChecked</td><td>After every check of a component's view(s)</td></tr>
-			<tr><td>OnDestroy</td><td>ngOnDestroy</td><td>Just before the directive is destroyed</td></tr>
-		</table>
-	</section>
-	<section><h3>lifecycle hooks - live demo</h3>
-
-	</section>
-</section>
-
 
 <section data-min="40"><h1>Hands on the Demo Project</h1></section>
 <section><h2>Hands on the Demo Project</h2>

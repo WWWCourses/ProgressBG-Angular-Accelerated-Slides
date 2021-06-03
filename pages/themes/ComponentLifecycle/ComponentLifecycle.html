@@ -103,8 +103,27 @@
 			<tr><td>OnDestroy</td><td>ngOnDestroy</td><td>Just before the directive is destroyed</td></tr>
 		</table>
 	</section>
-	<section><h3>lifecycle hooks - live demo</h3>
 
+	<section><h3>ngOnInit() hook</h3>
+		<p>Use to perform the following initialization tasks:</p>
+		<dl class="fa">
+			<dt>Perform complex initialization outside of the constructor. Components should be cheap and safe to construct. <code>ngOnInit()</code> <span class="note">is a good place for a component to fetch its initial data</span></dt>
+			<dt>Members marked as @Input() will be available here (but not in the constructor)</dt>
+			<dt>Remember, that Angular calls ngOnChanges() before ngOnInit(), but <span class="note">ngOnInit() is called only once</span>, while ngOnChanges() is called also many times after that.</dt>
+		</dl>
+	</section>
+	<section><h3>ngOnDestroy() hook</h3>
+		<p>This is the place to free resources that won't be garbage-collected automatically. To prevent memory leaks:</p>
+		<dl class="fa">
+			<dt>Unsubscribe from Observables and DOM events.</dt>
+			<dt>Stop interval timers.</dt>
+			<dt>Unregister all callbacks that the directive registered with global or application services.</dt>
+		</dl>
+	</section>
+	<section><h3>References</h3>
+		<dl class="fa">
+			<dt><a href="https://angular.io/guide/lifecycle-hooks">lifecycle-hooks @angular.io</a></dt>
+		</dl>
 	</section>
 </section>
 

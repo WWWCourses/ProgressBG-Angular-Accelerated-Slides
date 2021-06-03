@@ -71,9 +71,10 @@
 	<section>
 		<dl class="fa">
 			<dt><span class="note">A class</span> with specific purpose, like:</dt>
-			<dd>Share data between components</dd>
 			<dd>Get data from external resources</dd>
-			<dd>Implements application logic</dd>
+			<dd>Share data between components</dd>
+			<dd>Implements elements of application logic</dd>
+			<dt>A Service should do something specific and do it well.</dt>
 			<dt>Naming conventions:</dt>
 			<dd><code>serviceName.service.ts</code></dd>
 		</dl>
@@ -87,6 +88,7 @@
 			<dt><span class="note">Define</span> the service Class</dt>
 			<dt><span class="note">Register</span> the service (with an Angular dependency injector.)</dt>
 			<dt><span class="note">Declare</span> service as dependency, i.e. "<span class="note">Inject</span>" the service, where it is needed </dt>
+			<dd>Reference: <a href="https://angular.io/guide/architecture-services#dependency-injection-di">Angular Dependency Injection</a></dd>
 		</dl>
 	</section>
 	<section><h3>Define the Service Class File</h3>
@@ -397,11 +399,11 @@
 			// The "normal" size of the presentation, aspect ratio will be preserved
 			// when the presentation is scaled to fit different resolutions. Can be
 			// specified using percentage units.
-			width: 1280,
-			height: 1024,
+			width: 1920,
+			height: 1080,
 
 			// // Factor of the display size that should remain empty around the content
-			// margin: 0.1,
+			margin: 0.1,
 
 			// // Bounds for smallest/largest possible scale to apply to content
 			// minScale: 0.2,
