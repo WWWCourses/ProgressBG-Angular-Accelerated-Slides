@@ -144,15 +144,15 @@
 	<section>
 		<p>@NgModule takes a metadata object. Some of its properties are:</p>
 		<dl class="fa" style="font-size: .9em;">
-			<dt><code><span class="note">declarations</span>=[]</code></dt>
+			<dt><code><span class="note">declarations:[]</span></code></dt>
 			<dd>An array, that specifies which components belong to that module</dd>
-			<dt><code><span class="note">imports</span>=[]</code></dt>
+			<dt><code><span class="note">imports:[]</span></code></dt>
 			<dd>An array, that specifies other NgModules that this particular module needs to function properly.</dd>
-			<dt><code><span class="note">exports</span>=[]</code></dt>
+			<dt><code><span class="note">exports:[]</span></code></dt>
 			<dd>The set of components, directives, and pipes declared in this NgModule that can be used in the template of any component that is part of an NgModule that imports this NgModule.</dd>
-			<dt><code><span class="note">providers</span>=[]</code></dt>
+			<dt><code><span class="note">providers:[]</span></code></dt>
 			<dd>An array, that specifies the services your app will use. Recall, that you can also specify providers at the component level, which is often preferred.</dd>
-			<dt><code><span class="note">bootstrap</span>=[]</code></dt>
+			<dt><code><span class="note">bootstrap:[]</span></code></dt>
 			<dd>The main application view, called the root component, which hosts all other app views. Only the root NgModule should set the bootstrap property.</dd>
 		</dl>
 		<hr>
@@ -197,7 +197,16 @@
 
 <section data-min="20"><h1>Lazy-loading modules</h1></section>
 <section><h2>Lazy-loading modules</h2>
-	<!-- <section><h3>Overview</h3>
+	<section><h3>Overview</h3>
+		<dl class="fa">
+			<dt><span class="note">Lazy-loading modules</span> - a design pattern that <span class="note">loads modules when they are needed</span>.</dt>
+			<dt>Lazy loading helps keep initial bundle sizes smaller, which in turn helps decrease load times.</dt>
+			<dt>For large apps with lots of routes, consider lazy loading.</dt>
+			<dt>By default, NgModules are <span class="note">eagerly loaded</span> - modules are <span class="note">loaded as soon as the app loads</span>, whether or not they are immediately necessary.</dt>
+			<dt>Reference: <a href="https://angular.io/guide/lazy-loading-ngmodules">Lazy-loading feature modules</a> @angular/guide</dt>
+		</dl>
+	</section>
+	<section><h3 class="advanced">Analyzer your bundle</h3>
 		<dl class="fa">
 			<dt><span class="note">why</span> we need to bother with lazy-loading?</dt>
 			<dd>Check <a href="https://www.npmjs.com/package/webpack-bundle-analyzer">webpack-bundle-analyzer</a></dd>
@@ -205,7 +214,7 @@
 				npm install --save-dev webpack-bundle-analyzer
 			</code></pre>
 			<dd>Usage:</dd>
-			<pre><code rel="package.json" class="js">
+			<pre><code rel="package.json" class="ts">
 				...
 				"scripts": {
 					"ng": "ng",
@@ -225,15 +234,6 @@
 			</code></pre>
 		</dl>
 		<p>Reference: <a href="https://alligator.io/angular/angular-webpack-bundle-analyzer/">Angular: Performance Analysis with webpack Bundle Analyzer</a></p>
-	</section> -->
-	<section><h3>Overview</h3>
-		<dl class="fa">
-			<dt><span class="note">Lazy-loading modules</span> - a design pattern that <span class="note">loads modules when they are needed</span>.</dt>
-			<dt>Lazy loading helps keep initial bundle sizes smaller, which in turn helps decrease load times.</dt>
-			<dt>For large apps with lots of routes, consider lazy loading.</dt>
-			<dt>By default, NgModules are <span class="note">eagerly loaded</span> - modules are <span class="note">loaded as soon as the app loads</span>, whether or not they are immediately necessary.</dt>
-			<dt>Reference: <a href="https://angular.io/guide/lazy-loading-ngmodules">Lazy-loading feature modules</a> @angular/guide</dt>
-		</dl>
 	</section>
 </section>
 
@@ -260,7 +260,7 @@
 	</section>
 	<section><h3>app.module.ts</h3>
 		<p>Because we've used the <code>--module app</code> option, Angular CLI had auto-imported our new modules into the main app modules:</p>
-		<pre><code rel="app.module.ts" class="js">
+		<pre><code rel="app.module.ts" class="ts">
 			import { BrowserModule } from '@angular/platform-browser';
 			import { NgModule } from '@angular/core';
 
@@ -288,8 +288,8 @@
 		</code></pre>
 	</section>
 	<section><h3>What's in a module?</h3>
-		<p>The Angular CLI have genreted for us the file with the general structure of an NgModule:</p>
-		<pre><code rel="module-a.module.ts" class="js">
+		<p>The Angular CLI have generated for us the file with the general structure of an NgModule:</p>
+		<pre><code rel="module-a.module.ts" class="ts">
 			import { NgModule } from '@angular/core';
 			import { CommonModule } from '@angular/common';
 			import { ComponentAComponent } from './component-a/component-a.component';
@@ -310,7 +310,7 @@
 		</dl>
 	</section>
 	<section><h3>Create the components - TASK</h3>
-		<p>Create one component en each module, so that your /app tree looks like:</p>
+		<p>Create one component in each module, so that your /app tree looks like:</p>
 		<pre><code rel="tree app/" class="bash">
 			app/
 			├── app.component.ts
@@ -331,7 +331,7 @@
 	</section>
 	<section><h3>Create the components - TASK</h3>
 		<p>Make sure, that each component is declared into its module, like:</p>
-		<pre><code rel="JS" class="js">
+		<pre><code rel="module-a.module.ts" class="ts">
 			import { NgModule } from '@angular/core';
 			import { CommonModule } from '@angular/common';
 			import { ComponentAComponent } from './component-a/component-a.component';
@@ -351,7 +351,7 @@
 			<dt>If we want to share a component form one module with other modules,<span class="note"> we have to export it</span></dt>
 			<dt>Let's export ComponentB, so that we can use it in app module</dt>
 		</dl>
-		<pre><code rel="module-b.module.ts" class="js">
+		<pre><code rel="module-b.module.ts" class="ts">
 			import { NgModule } from '@angular/core';
 			import { CommonModule } from '@angular/common';
 
@@ -398,7 +398,7 @@
 			<dt>A module, which is intended to be lazy-loaded must be added to the AppRoutingModule routes, but using the <code>loadChildren</code> (instead of component) for the given <code>path.</code></dt>
 			<dt>So let's add a AppRoutingModule (app-routing.module.ts) to our app (if we did not create one), and point that there will be a lazy-loaded modules with the <code>loadChildren</code> properly:</dt>
 		</dl>
-		<pre><code rel="app-routing.module.ts" class="js">
+		<pre><code rel="app-routing.module.ts" class="ts">
 			import { NgModule } from '@angular/core';
 			import { Routes, RouterModule } from '@angular/router';
 
@@ -406,7 +406,8 @@
 				{
 					path: 'lazy',
 					loadChildren: () => import('./module-lazy/module-lazy.module')
-						.then(m => m.ModuleLazyModule) }
+						.then(m => m.ModuleLazyModule)
+				}
 			];
 
 			@NgModule({
@@ -420,7 +421,7 @@
 		<dl class="fa">
 			<dt>In the imports section of our <code>module-lazy-routing.module.ts</code> we must use <code>RouterModule.forChild(routes)</code></dt>
 		</dl>
-		<pre><code rel="module-lazy-routing.module.ts" class="js">
+		<pre><code rel="module-lazy-routing.module.ts" class="ts">
 			import { NgModule } from '@angular/core';
 			import { Routes, RouterModule } from '@angular/router';
 
@@ -439,7 +440,7 @@
 		<dl class="fa">
 			<dt>In our ModuleLazyModule we must import the ModuleLazyRoutingModule</dt>
 		</dl>
-		<pre><code rel="module-lazy.module.ts" class="js">
+		<pre><code rel="module-lazy.module.ts" class="ts">
 			import { NgModule } from '@angular/core';
 			import { CommonModule } from '@angular/common';
 
@@ -460,7 +461,7 @@
 		<dl class="fa">
 			<dt>Of course, we must add a &lt;router-outlet&gt;&lt;/router-outlet&gt; in order to display the ModuleLazyModule components, and navigation link:</dt>
 		</dl>
-		<pre><code rel="app.component.ts" class="js">
+		<pre><code rel="app.component.ts" class="ts">
 			import { Component } from '@angular/core';
 
 			@Component({
