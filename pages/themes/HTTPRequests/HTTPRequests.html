@@ -71,8 +71,8 @@
 		<dl class="fa">
 			<dt>Angular 4.3 introduced a new HttpClient service module.</dt>
 			<dt>The older Http service still works, but it's deprecated in Angular 5</dt>
-			<dd class="note">And it is removed from Angular6</dd>
-			<dt>The HttpClient service uses Observables (from RxJS) to emit data</dt>
+			<dd>And it is removed from Angular6</dd>
+			<dt class="note">The HttpClient service uses Observables (from RxJS) to emit data</dt>
 		</dl>
 	</section>
 	<section><h3>HTTPClient.get()</h3>
@@ -129,24 +129,24 @@
 			export class AppModule { }
 		</code></pre>
 	</section>
-	<section><h3>Using Http into our service</h3>
+	<section><h3>Using Http into our api service</h3>
 		<dl class="fa">
-			<dt>Crete the Books Service</dt>
+			<dt>Crete the Todos Service (if you have not)</dt>
 		</dl>
 		<pre><code rel="Terminal" class="bash" data-noescape>
-			ng g s books
+			ng g s todos
 		</code></pre>
 		<dl class="fa">
-			<dt>Inject the http service into Books Service</dt>
+			<dt>Inject the HttpClient service into Todos Service</dt>
 		</dl>
-		<pre><code rel="books.service.ts" class="typescript">
+		<pre><code rel="todos.service.ts" class="typescript">
 			import { Injectable } from '@angular/core';
 			import { HttpClient } from '@angular/common/http';
 
 			@Injectable({
 				providedIn: 'root'
 			})
-			export class BooksService {
+			export class TodosService {
 				constructor(private http: HttpClient) { }
 			}
 		</code></pre>
@@ -154,62 +154,41 @@
 	<section><h3>Demo data</h3>
 		<dl class="fa" style="font-size: .8em;">
 			<dt>In following examples these simple JSON data will be used:</dt>
-			<pre><code rel="books.json" class="js">
+			<pre><code rel="todos.json" class="js">
 				[
-						{
-								"title":"Player Piano",
-								"author": "Kurt Vonnegut",
-								"price": 2.45
-						},
-						{
-								"title":"Cat's Cradle",
-								"author": "Kurt Vonnegut",
-								"price": 3.25
-						},
-						{
-								"title":"Steppenwolf",
-								"author": "Hermann Hesse",
-								"price": 5.20
-						},
-						{
-								"title":"Siddhartha",
-								"author": "Hermann Hesse",
-								"price": 4.60
-						}
+					{
+						"id": 1,
+						"title": "Todo1",
+						"completed": false
+					},
+					{
+						"id": 2,
+						"title": "Todo2",
+						"completed": true
+					}
 				]
 
 			</code></pre>
 		</dl>
-		<p style="font-size: .6em;">URL: <a href="data/books.json">data/books.json</a></p>
 	</section>
 	<section><h3>Demo data</h3>
 		<dl class="fa">
-			<dt>Create the <code>books.json</code> file in <code>src/assets/data/</code></dt>
+			<dt>Create the <code>todos.json</code> file in <code>src/assets/data/</code></dt>
 		</dl>
 		<pre><code rel="Terminal" class="bash">
 			mkdir -p src/assets/data/
 
-			cat &lt;&lt;EOT &gt;&gt; src/assets/data/books.json
+			cat &lt;&lt;EOT &gt;&gt; src/assets/data/todos.json
 			[
 				{
-					&quot;title&quot;:&quot;Player Piano&quot;,
-					&quot;author&quot;: &quot;Kurt Vonnegut&quot;,
-					&quot;price&quot;: 8.45
+					"id": 1,
+					"title": "Todo1",
+					"completed": false
 				},
 				{
-					&quot;title&quot;:&quot;Cat&#39;s Cradle&quot;,
-					&quot;author&quot;: &quot;Kurt Vonnegut&quot;,
-					&quot;price&quot;: 3.25
-				},
-				{
-					&quot;title&quot;:&quot;Steppenwolf&quot;,
-					&quot;author&quot;: &quot;Hermann Hesse&quot;,
-					&quot;price&quot;: 5.20
-				},
-				{
-					&quot;title&quot;:&quot;Siddhartha&quot;,
-					&quot;author&quot;: &quot;Hermann Hesse&quot;,
-					&quot;price&quot;: 4.60
+					"id": 2,
+					"title": "Todo2",
+					"completed": true
 				}
 			]
 			EOT
@@ -225,57 +204,63 @@
 		<dl class="fa">
 			<dt>Usually, we want to place the server requests in a Service</dt>
 		</dl>
-		<pre><code rel="books.service.ts" class="typescript">
+		<pre><code rel="todos.service.ts" class="typescript">
 			import { Injectable } from '@angular/core';
 			import { HttpClient } from '@angular/common/http';
 
 			@Injectable({
 				providedIn: 'root'
 			})
-			export class BooksService {
-				booksURL = 'assets/data/books.json';
+			export class TodosService {
+				todosURL = 'assets/data/todos.json';
 
 				constructor(private http: HttpClient) { }
 
-				fetchBooks() {
-						return this.http.get(this.booksURL)
+				fetchTodos() {
+					return this.http.get(this.todosURL)
 				}
 			}
 		</code></pre>
 	</section>
-	<section><h3>Subscribe to the Books Data</h3>
+	<section><h3>Subscribe to the Todos Data</h3>
 		<dl class="fa">
-			<dt>We can use the data retrieved by fetchBooks method in any component we injected the BooksService</dt>
-			<dt>Lets make a BooksList Component</dt>
+			<dt>We can use the data retrieved by fetchTodos method in any component we injected the TodosService</dt>
+			<dt>Make a TodosList Component (if you have not)</dt>
 			<pre><code rel="Terminal" class="bash" data-noescape>
-				ng g c BooksList
+				ng g c TodosList
 			</code></pre>
 			<dt>With the following template</dt>
-			<pre><code rel="books-list.component.html" class="html5">
-				<ul>
-					<li *ngFor="let book of books">{{book.author}} - {{book.title}}</li>
-				</ul>
+			<pre><code rel="todos-list.component.html" class="html5">
+				<div>
+					<app-add-todo></app-add-todo>
+					<ul>
+						<app-todo-item
+							*ngFor="let todo of todos" [todo]="todo"
+						></app-todo-item>
+					</ul>
+				</div>
 			</code></pre>
 		</dl>
 	</section>
-	<section><h3>Subscribe to the Books Data</h3>
-		<pre><code rel="books-list.component.ts" class="typescript">
-			export class BooksListComponent implements OnInit {
-				books = [];
+	<section><h3>Subscribe to the Todos Data</h3>
+		<pre><code rel="todos-list.component.ts" class="typescript">
+			export class TodosListComponent implements OnInit {
+				todos = [];
 
-				constructor(private _booksService:BooksService) { }
+				constructor(private _todosService:TodosService) { }
 
 				ngOnInit() {
-					this._booksService.fetchBooks()
-						.subscribe( data=> this.books = data)
+					this._todosService
+						.fetchTodos()
+						.subscribe( data=> this.todos = data)
 				}
 			}
 		</code></pre>
 	</section>
-	<section><h3>Cast the retrieved Observable into Books array</h3>
+	<section><h3>Cast the retrieved Observable into Todos array</h3>
 		<dl class="fa">
 			<dt>So far everything should working, but without using types we can not get the benefits from TypeScript.</dt>
-			<dd>For instance we have no auto-completions on our <code>book</code> object, which is quite inconvenient and error-prone.</dd>
+			<dd>For instance we have no auto-completions on our <code>todo</code> object, which is quite inconvenient and error-prone.</dd>
 		</dl>
 	</section>
 	<section><h3>TypeScript type assertion - recap</h3>
@@ -301,62 +286,66 @@
 			employee.name = "Ada"; // OK
 			employee.salary = 1234; // OK
 		</code></pre>
-		<p>Reference: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html#type-assertions">Type assertions @typescriptlang</a></p>
+		<p>Reference: <a href="https://www.typescriptlang.org/docs/handtodo/basic-types.html#type-assertions">Type assertions @typescriptlang</a></p>
 	</section>
-	<section><h3>Cast the retrieved Observable into Books array</h3>
+	<section><h3>Cast the retrieved Observable into Todos array</h3>
 		<dl class="fa">
-			<dt>We need to create a Book Interface, in order to have a type the Observable to be casted to</dt>
-			<dd>Just make an app/book.ts file</dd>
+			<dt>We need to create a Todo Interface, in order to have a type the Observable to be casted to</dt>
+			<dd>Just make an app/todo.ts file</dd>
 		</dl>
-		<pre><code rel="app/book.ts" class="typescript">
-			export interface IBook{
+		<pre><code rel="app/todo.ts" class="typescript">
+			export interface ITodo{
 					title:string,
 					author: string,
 					price: number
 			}
 		</code></pre>
 	</section>
-	<section><h3>Cast the retrieved Observable into Books array</h3>
+	<section><h3>Cast the retrieved Observable into Todos array</h3>
 		<dl class="fa">
-			<dt>Now, we can use the IBook Interface in our BooksService</dt>
+			<dt>Now, we can use the ITodo Interface in our TodosService</dt>
 		</dl>
-		<pre><code rel="books.service.ts" class="typescript">
+		<pre><code rel="todos.service.ts" class="typescript">
 			// other imports...
 			import { Observable } from 'rxjs';
-			import { IBook } from './books';
+			import { ITodo } from './todos';
 
 			@Injectable({
 				providedIn: 'root'
 			})
-			export class BooksService {
+			export class TodosService {
 				// other code...
 
-				// type cast the Observable to IBook
-				fetchBooks():Observable&lt;IBook[]&gt; {
-					return this.http.get&lt;IBook[]&gt;(this.booksURL)
+				// type cast the Observable to ITodo
+				fetchTodos():Observable&lt;ITodo[]&gt; {
+					return this.http.get&lt;ITodo[]&gt;(this.todosURL)
 				}
 			}
 		</code></pre>
 	</section>
-	<section><h3>Sorting the BooksList by price</h3>
-		<pre><code rel="books-list.component.ts" class="typescript">
-			export class BooksListComponent implements OnInit {
-				books = [];
+	<section><h3>Sorting the TodosList by title</h3>
+		<pre><code rel="todos-list.component.ts" class="typescript">
+			// we must import RxJS operators we use
+			import { map } from 'rxjs/operators';
 
-				compareByPrice(a,b) {
-					if (a.price < b.price)
-						return -1;
-					if (a.price > b.price)
-						return 1;
+			export class TodosListComponent implements OnInit {
+				todos:ITodo[]=[]
+
+				constructor( private _todosService:TodosService) { }
+
+				compareByTitle(a:ITodo,b:ITodo) {
+					if (a.title < b.title)
+							return -1;
+					if (a.title > b.title)
+							return 1;
 					return 0;
 				}
 
-				constructor(private _booksService:BooksService) { }
-
 				ngOnInit() {
-					this._booksService.fetchBooks()
-						.pipe(map(things => things.sort(this.compareByPrice)))
-						.subscribe( data=> this.books = data)
+					this._todosService
+							.fetchTodos()
+							.pipe(map(todos => todos.sort(this.compareByTitle)))
+							.subscribe( data=> this.todos = data)
 				}
 			}
 		</code></pre>
@@ -411,27 +400,28 @@
 	<section><h3></h3>
 		<p>For catching errors in Observable we can use the RxJS <a href="https://rxjs-dev.firebaseapp.com/api/operators/catchError">catchError</a> operator:</p>
 		<pre><code rel="JS" class="js">
-			handleError(error) {
-				let errorMessage = '';
-				if (error.error instanceof ErrorEvent) {
-				  // client-side error
-				  errorMessage = `Client-side error: ${error.error.message}`;
-				} else {
-				  // server-side error
-				  errorMessage = `Server-side error: ${error.status}\nMessage: ${error.message}`;
-				}
-				// window.alert(errorMessage);
-				console.log(`errorMessage: ${errorMessage}`);
+			handleError(error: HttpErrorResponse) {
+			let errorMessage = '';
+			if (error.error instanceof ErrorEvent) {
+				// client-side error
+				errorMessage = `Client-side error: ${error.error.message}`;
+			} else {
+				// server-side error
+				errorMessage = `Server-side error: ${error.status}\nMessage: ${error.message}`;
+			}
+			// window.alert(errorMessage);
+			console.log(`errorMessage: ${errorMessage}`);
 
-				return throwError(errorMessage);
-			  }
+			return throwError(errorMessage);
+			}
 
-			  getTodos(){
-				return this.http.get<Todo[]>(this.todosURL)
-				  .pipe(
+
+			fetchTodos():Observable<ITodo[]> {
+			let resp = this.http.get<ITodo[]>(this.todosURL)
+				return resp.pipe(
 					catchError(this.handleError)
-				  )
-			  }
+				)
+			}
 		</code></pre>
 		<dl class="fa">
 			<dt>Reference:</dt>
